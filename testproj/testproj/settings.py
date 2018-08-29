@@ -25,7 +25,7 @@ SECRET_KEY = 'sell*224^xvz7g!tq81)7#cm2fqy9uy@v2_nw7b#*6)+&x*btz'
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True
 
-ALLOWED_HOSTS = []
+ALLOWED_HOSTS = ['31.186.100.149','localhost','127.0.0.1']
 
 
 # Application definition
@@ -37,6 +37,8 @@ INSTALLED_APPS = [
     'django.contrib.sessions',
     'django.contrib.messages',
     'django.contrib.staticfiles',
+    'monitor',
+    'testproj',
 ]
 
 MIDDLEWARE = [
@@ -50,6 +52,17 @@ MIDDLEWARE = [
 ]
 
 ROOT_URLCONF = 'testproj.urls'
+
+TEMPLATES_CONTEXT_PROCESSORS = [
+    'django.contrib.auth.context_processors.auth',
+    'django.template.context_processors.request',
+    'django.template.context_processors.debug',
+    'django.template.context_processors.i18n',
+    'django.template.context_processors.static',
+    'django.template.context_processors.media',
+    'django.template.context_processors.tz',
+    'django.contrib.messages.context_processors.messages',
+]
 
 TEMPLATES = [
     {
@@ -69,6 +82,45 @@ TEMPLATES = [
 
 WSGI_APPLICATION = 'testproj.wsgi.application'
 
+LOGGING = {
+    'version': 1,
+    'disable_existing_loggers': False,
+    'handlers': {
+        'file': {
+            'level': 'DEBUG',
+            'class': 'logging.FileHandler',
+            'filename': '/var/log/track/app.log',
+        },
+        'console': {
+            'level': 'DEBUG',
+            'class': 'logging.StreamHandler',
+        },
+        'logger': {
+            'level': 'DEBUG',
+            'class': 'logging.handlers.RotatingFileHandler',
+            'filename': '/tmp/tasks.log',
+            'maxBytes': 1024 * 1024 * 5,  # 5 MB
+            'backupCount': 2,
+        },
+    },
+    'loggers': {
+        'INFO': {
+            'handlers': ['file'],
+            'level': 'DEBUG',
+            'propagate': True,
+        },
+        'cacheback': {
+            'handlers': ['file'],
+            'level': 'DEBUG',
+            'propagate': False,
+        },
+        'cel_logging': {
+            'handlers': ['logger'],
+            'level': 'DEBUG',
+            'propagate': True,
+        },
+    },
+}
 
 # Database
 # https://docs.djangoproject.com/en/2.1/ref/settings/#databases
@@ -103,9 +155,9 @@ AUTH_PASSWORD_VALIDATORS = [
 # Internationalization
 # https://docs.djangoproject.com/en/2.1/topics/i18n/
 
-LANGUAGE_CODE = 'en-us'
+LANGUAGE_CODE = 'ru'
 
-TIME_ZONE = 'UTC'
+TIME_ZONE = 'Asia/Yekaterinburg'
 
 USE_I18N = True
 
@@ -118,3 +170,9 @@ USE_TZ = True
 # https://docs.djangoproject.com/en/2.1/howto/static-files/
 
 STATIC_URL = '/static/'
+STATIC_ROOT = os.path.join(BASE_DIR, "staticfiles")
+STATICFILES_DIRS = [os.path.join(BASE_DIR, "static"), ]
+STATICFILES_FINDERS = [
+    'django.contrib.staticfiles.finders.FileSystemFinder',
+    'django.contrib.staticfiles.finders.AppDirectoriesFinder',
+]
