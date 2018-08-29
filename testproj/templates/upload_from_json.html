@@ -1,1 +1,9 @@
-<li>{{first_obj}}</li>
+{% if latest_question_list %}
+    <ul>
+    {% for question in first_obj %}
+        <li>{{question}}</li>
+    {% endfor %}
+    </ul>
+{% else %}
+    <p>No objects available.</p>
+{% endif %}
