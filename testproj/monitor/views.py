@@ -9,7 +9,7 @@ logger = logging.getLogger('cel_logging')
 
 def upload_from_json(request):
     conf = SparkConf().setAppName('TestProjApp')
-    sc = SparkContext(conf=conf)
+    sc = SparkContext.getOrCreate(conf=conf)
     logRDD = sc.textFile("/home/alex/big_data_edx/tracking.log")
     test = logRDD.take(5)
     context = {
