@@ -1,2 +1,9 @@
-<div>{{first_obj}}</div>
-<p>{{second_obj}}</p>
+<table>
+    <tr>    
+    {% for question in csv %}
+            <td>{{question}}</td>
+    {% endfor %}
+    </tr>
+</table>
+<p>{{log}}</p>
+<p>{{countLog}}</p>

@@ -2,10 +2,10 @@ from django.shortcuts import render
 import json
 from django.shortcuts import render, redirect
 import logging
+#import pandas as pd
 
 from pyspark import SparkContext, SparkConf
-import pandas as pd
-from pyspark.sql import SQLContext
+#from pyspark.sql import SQLContext
 
 logger = logging.getLogger('cel_logging')
 
@@ -28,15 +28,17 @@ def normlizejson(log):
 def upload_from_json(request):
     conf = SparkConf().setAppName('TestProjApp')
     sc = SparkContext.getOrCreate(conf=conf)
-    sql_sc = SQLContext(sc)
-    pandas_df = pd.read_csv('/home/alex/big_data_edx/track/UrFU_IHA.b.Hu-0063.1_spring_2018_problem_grade_report_2018-08-30-1000.csv') 
-    s_df = sql_sc.createDataFrame(pandas_df)
+    #sql_sc = SQLContext(sc)
+    csvRDD = sc.textFile('/home/alex/big_data_edx/track/UrFU_IHA.b.Hu-0063.1_spring_2018_problem_grade_report_2018-08-30-1000.csv').map(lambda line: line.split(","))
+    #s_df = sql_sc.createDataFrame(pandas_df)
     logRDD = sc.textFile("/home/alex/big_data_edx/track/tracking.log")
-    test = logRDD.filter(lambda line: "alexKekovich" in line)
-    test = normlizejson(test.first())
-    test2 = logRDD.count()
+    csv = csvRDD.collect()
+    log = logRDD.filter(lambda line: "alexKekovich" in line)
+    log = normlizejson(log.first())
+    countLog = logRDD.count()
     context = {
-        'first_obj': pandas_df,
-        'second_obj':test2,
+        'csv': csv,
+        'log': log,
+        'countLog':countLog,
     }
     return render(request, 'upload_from_json.html', context)
