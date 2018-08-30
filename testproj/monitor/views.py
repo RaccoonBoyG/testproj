@@ -11,13 +11,13 @@ logger = logging.getLogger('cel_logging')
 def normlizejson(log):
     words = []
     stufflist = list()
-    if(type(log) == list()):
+    if(type(log) is list):
         for line in log:
             j = json.loads(line)
             words = j
             stufflist.append(words)
         return stufflist
-    elif(type(log) == str()):
+    elif(type(log) is str):
         j = json.loads(log)
         words = j
         stufflist.append(words)
@@ -31,7 +31,7 @@ def upload_from_json(request):
     logRDD = sc.textFile("/home/alex/big_data_edx/tracking.log")
     test = logRDD.filter(lambda line: "username" in line)
     test = test.first()
-    logger.info(normlizejson(test),type(test))
+    logger.info(type(test))
     test2 = logRDD.count()
     context = {
         'first_obj': test,
