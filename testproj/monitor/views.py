@@ -37,7 +37,7 @@ def upload_from_json(request):
     test = normlizejson(test.first())
     test2 = logRDD.count()
     context = {
-        'first_obj': s_df,
+        'first_obj': s_df.head(),
         'second_obj':test2,
     }
     return render(request, 'upload_from_json.html', context)
