@@ -13,7 +13,7 @@ def upload_from_json(request):
     sc = SparkContext.getOrCreate(conf=conf)
     logRDD = sc.textFile("/home/alex/big_data_edx/tracking.log")
     test = logRDD.filter(lambda line: "username" in line)
-    test.take(5)
+    test.first()
     test2 = logRDD.count()
     context = {
         'first_obj': test,
