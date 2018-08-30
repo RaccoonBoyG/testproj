@@ -23,15 +23,12 @@ def normlizejson(log):
         stufflist.append(words)
         return stufflist
 
-def hasFilter(log):
-
-
 
 def upload_from_json(request):
     conf = SparkConf().setAppName('TestProjApp')
     sc = SparkContext.getOrCreate(conf=conf)
     logRDD = sc.textFile("/home/alex/big_data_edx/track/tracking.log")
-    test = logRDD.filter(hasFilter)
+    test = logRDD.filter(lambda line: "alexKekovich" in line)
     test = normlizejson(test.first())
     test2 = logRDD.count()
     context = {
