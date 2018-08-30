@@ -31,7 +31,7 @@ def upload_from_json(request):
     logRDD = sc.textFile("/home/alex/big_data_edx/tracking.log")
     test = logRDD.filter(lambda line: "username" in line)
     test = test.first()
-    logger.info(normlizejson(test))
+    logger.info(normlizejson(test),type(test))
     test2 = logRDD.count()
     context = {
         'first_obj': test,
