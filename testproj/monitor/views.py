@@ -1,10 +1,9 @@
 from django.shortcuts import render
 import json
 from django.shortcuts import render, redirect
+import logging
 
 from pyspark import SparkContext, SparkConf
-import logging
-import json
 import pandas as pd
 from pyspark.sql import SQLContext
 
@@ -37,7 +36,7 @@ def upload_from_json(request):
     test = normlizejson(test.first())
     test2 = logRDD.count()
     context = {
-        'first_obj': s_df.head(),
+        'first_obj': pandas_df,
         'second_obj':test2,
     }
     return render(request, 'upload_from_json.html', context)
