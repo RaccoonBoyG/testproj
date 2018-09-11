@@ -6,6 +6,5 @@ from .views import upload_from_json, page_view
 """
 urlpatterns = [
     re_path(r'^$',page_view, name='page_view'),
-    re_path(r'^(?P<link>.*)/$', page_view, name='page_view'),
     re_path(r'^upload_json/', upload_from_json, name='upload_from_json'),
 ]
