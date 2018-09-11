@@ -13,7 +13,6 @@ ul,a,li{
  .menu_box {
      width: 100%;
      height:70px;
-     position: absolute;
      background-color: #171f2b;
      border: 1px solid #171f2b;
      box-shadow: 0 4px 5px 0 rgba(0,0,0,0.5);
@@ -64,8 +63,6 @@ ul,a,li{
  }
  p {
      text-align: left;
-     padding-left: 30px;
-
  }
  .up{
      background-color: #2f4733;
@@ -96,3 +93,9 @@ ul,a,li{
  main{
      display: flex;
  }
+.upload_file{
+    margin-top: 5%;
+}
+.upload_list{
+    margin-top: 5%;
+}
