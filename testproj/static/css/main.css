@@ -36,6 +36,7 @@ ul,a,li{
     padding: 10px;
     background-color: #293342;
     box-shadow: 0 4px 5px 0 rgba(0,0,0,0.5);
+    color:white;
  }
  .but:hover{
     background-color: #3d4551;
