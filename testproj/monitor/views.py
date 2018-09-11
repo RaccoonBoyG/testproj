@@ -9,8 +9,6 @@ from pyspark.sql import SQLContext
 import pyspark.sql.functions as F
 from datetime import datetime
 
-from .models import Page
-
 
 logger = logging.getLogger('cel_logging')
 
