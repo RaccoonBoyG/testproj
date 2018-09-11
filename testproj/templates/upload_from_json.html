@@ -1,6 +1,6 @@
 {% extends "base.html" %}
 {% block content %}
-
+<body>
 <form method="post" enctype="multipart/form-data">
     {% csrf_token %}
     {{ form.as_p }}
@@ -18,5 +18,5 @@
         {% endfor %}
     </ul>
 </div>
-
+</body>
 {% endblock %}
