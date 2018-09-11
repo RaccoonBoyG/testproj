@@ -110,5 +110,12 @@ ul,a,li{
     padding: 10px;
 }
 .li_list {
-
+    border: 1px solid #293342;
+    border-radius: 200px;
+    padding: 10px;
+    background-color: #293342;
+    margin-top: 10px;
+}
+.a_list{
+    
 }

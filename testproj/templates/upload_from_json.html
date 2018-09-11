@@ -12,8 +12,8 @@
     <h3>Загруженные файлы:</h3>
     <ul>
         {% for obj in documents %}
-        <li>
-            <a class="li_list" href="{{ obj.document.url }}">{{ obj.document.name }}<small>({{ obj.uploaded_at }})</small></a>
+        <li class="li_list">
+            <a class="a_list" href="{{ obj.document.url }}">{{ obj.document.name }}<small>({{ obj.uploaded_at }})</small></a>
         </li>
         {% endfor %}
     </ul>
