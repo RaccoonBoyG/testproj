@@ -78,7 +78,7 @@ def upload_from_json(request):
         form = DocumentForm(request.POST, request.FILES)
         if form.is_valid():
             form.save()
-            return redirect('/')
+            return redirect('/upload_json')
     else:
         form = DocumentForm()
     return render(request, 'upload_from_json.html', {
