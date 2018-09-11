@@ -110,12 +110,17 @@ ul,a,li{
     padding: 10px;
 }
 .li_list {
-    border: 1px solid #293342;
-    border-radius: 200px;
-    padding: 10px;
-    background-color: #293342;
-    margin-top: 10px;
+    margin-top: 30px;
 }
 .a_list{
-    
+    color: aliceblue;
+    border: 1px solid #2c6b33;
+    border-radius: 30px;
+    padding: 10px;
+    background-color: #2c6b33;
+}
+
+.a_list:hover{
+    background-color: #446649;
+    border: 1px solid #446649; 
 }
