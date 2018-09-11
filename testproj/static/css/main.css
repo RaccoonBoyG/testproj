@@ -77,6 +77,9 @@ ul,a,li{
      background-color: #446649;
      border: 1px solid #446649;  
  }
+ .upfile{
+    width: 150px;
+ }
  .logo1{
      height: 80px;
  }
