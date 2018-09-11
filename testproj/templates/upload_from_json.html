@@ -9,12 +9,12 @@
     </form>
 </div>
 <div class="upload_list">
-    <p>Uploaded files:</p>
+    <h3>Загруженные файлы:</h3>
     <ul>
         {% for obj in documents %}
-        <li>
+        <li class="li_list">
             <a href="{{ obj.document.url }}">{{ obj.document.name }}</a>
-            <small>(Uploaded at: {{ obj.uploaded_at }})</small>
+            <small>{{ obj.uploaded_at }}</small>
         </li>
         {% endfor %}
     </ul>
