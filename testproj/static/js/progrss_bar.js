@@ -4,6 +4,8 @@ $(function() {
     var percent = $('.percent');
     var status = $('#status');
 
+    console.log("TEST")
+
     $('form').ajaxForm({
         beforeSend: function() {
             status.empty();
