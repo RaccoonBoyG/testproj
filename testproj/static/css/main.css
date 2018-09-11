@@ -20,6 +20,9 @@ ul,a,li{
      display: inline-flex;
      color: white;
  }
+ .title{
+     color: white;
+ }
  .menu{
      width: 100%;
      display: inline-flex;
