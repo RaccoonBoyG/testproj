@@ -1,8 +1,6 @@
 ul,a,li{
     text-decoration: none;
-    color: #fff; 
     list-style-type: none;
-    display: inline-flex;
  }
  body {/*font-family: "Antic Slab", Arial, Helvetica, sans-serif;*/
  padding: 0px;
