@@ -64,11 +64,11 @@ ul,a,li{
      padding-left: 30px;
 
  }
- .up a{
+ .up{
      background-color: #2f4733;
      border: 1px solid #2f4733;
  }
- .up:hover a{
+ .up:hover{
      background-color: #446649;
      border: 1px solid #446649;  
  }
