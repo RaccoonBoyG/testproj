@@ -17,9 +17,6 @@ $(function() {
             var percentVal = percentComplete + '%';
             bar.width(percentVal);
             percent.html(percentVal);
-        },
-        complete: function(xhr) {
-            status.html(xhr.responseText);
         }
     });
 }); 
