@@ -9,6 +9,9 @@ from pyspark.sql import SQLContext
 import pyspark.sql.functions as F
 from datetime import datetime
 
+from .forms import DocumentForm
+from .models import Document
+
 
 logger = logging.getLogger('cel_logging')
 
@@ -39,7 +42,7 @@ def calculateTime(df_log):
     return time_all
 
 
-def upload_from_json(request):
+def upload_from_json_spark():
     conf = SparkConf().setAppName('TestProjApp')
     sc = SparkContext.getOrCreate(conf=conf)
     sql_sc = SQLContext(sc)
@@ -67,7 +70,20 @@ def upload_from_json(request):
 
     #log = normlizejson(log.first())
     #countLog = logRDD.count()
-    return render(request, 'upload_from_json.html')
+    #return render(request, 'upload_from_json.html')
+
+def upload_from_json(request):
+    if request.method == 'POST':
+        form = DocumentForm(request.POST, request.FILES)
+        if form.is_valid():
+            form.save()
+            return redirect('/')
+    else:
+        form = DocumentForm()
+    return render(request, 'upload_from_json.html', {
+        'form': form
+    })    
 
 def page_view(request):
-    return render(request, 'base.html')
+    documents = Document.objects.all()
+    return render(request, 'base.html',{'documents': documents})

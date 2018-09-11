@@ -1,4 +1,22 @@
 {% extends "base.html" %}
 {% block content %}
 
+<form method="post" enctype="multipart/form-data">
+    {% csrf_token %}
+    {{ form.as_p }}
+    <button type="submit">Upload</button>
+</form>
+
+<div>
+    <p>Uploaded files:</p>
+    <ul>
+        {% for obj in documents %}
+        <li>
+            <a href="{{ obj.document.url }}">{{ obj.document.name }}</a>
+            <small>(Uploaded at: {{ obj.uploaded_at }})</small>
+        </li>
+        {% endfor %}
+    </ul>
+</div>
+
 {% endblock %}
