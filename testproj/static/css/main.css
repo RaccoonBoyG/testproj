@@ -88,5 +88,8 @@ ul,a,li{
      color: rgb(97, 97, 97);
  }
  .form{
-
+    margin-top: 5%;
+ }
+ main{
+     display: flex;
  }
