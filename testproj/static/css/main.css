@@ -61,6 +61,11 @@ ul,a,li{
      font-weight: normal !important;
      letter-spacing: 0.5px;
  }
+ h3{
+    font-size: 15px !important;
+    font-weight: normal !important;
+    letter-spacing: 0.5px;
+ }
  p {
      text-align: left;
  }
@@ -87,6 +92,12 @@ ul,a,li{
      height: 100px;
      color: rgb(97, 97, 97);
  }
+ main{
+    display: block;
+    margin-left: auto;
+    margin-right: auto;
+    width: 1000px;
+ }
  .form{
     margin-top: 5%;
  }
@@ -99,5 +110,5 @@ ul,a,li{
     padding: 10px;
 }
 .li_list {
-    
+
 }
