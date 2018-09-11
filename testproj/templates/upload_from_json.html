@@ -1,6 +1,8 @@
 {% extends "base.html" %}
 {% load static %}
 {% block content %}
+<script src='{% static "js/jquery-3.3.1.min.js" %}' ></script>
+<script src='{% static "js/progress_bar.js" %}' ></script>
 <body>
 <div class="upload_file">
     <form class="form" method="post" enctype="multipart/form-data">
@@ -8,6 +10,11 @@
         {{ form.as_p }}
         <button class="but up upfile" type="submit">Загрузить</button>
     </form>
+    <div class="progress">
+        <div class="bar"></div >
+        <div class="percent">0%</div >
+    </div>    
+    <div id="status"></div>
 </div>
 <div class="upload_list">
     <h3>Загруженные файлы:</h3>
