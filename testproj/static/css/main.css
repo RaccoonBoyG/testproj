@@ -18,6 +18,7 @@ ul,a,li{
      border: 1px solid #171f2b;
      box-shadow: 0 4px 5px 0 rgba(0,0,0,0.5);
      display: inline-flex;
+     color: white;
  }
  .menu{
      width: 100%;
