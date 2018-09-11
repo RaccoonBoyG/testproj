@@ -18,7 +18,7 @@
                 <form action="{% url 'delete' %}" method="post" enctype="multipart/form-data">
                     {% csrf_token %}
                     <input type="hidden" name="document" value="{{ obj.pk }}" />
-                    <input type="submit" value="Delete" />
+                    <input type="image" src="{% static 'images/close.png' %}" value="Delete" />
                 </form>
             {% endif %}
         </li>
