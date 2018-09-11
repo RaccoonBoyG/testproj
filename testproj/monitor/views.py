@@ -73,6 +73,7 @@ def upload_from_json_spark():
     #return render(request, 'upload_from_json.html')
 
 def upload_from_json(request):
+    documents = Document.objects.all()
     if request.method == 'POST':
         form = DocumentForm(request.POST, request.FILES)
         if form.is_valid():
@@ -81,9 +82,9 @@ def upload_from_json(request):
     else:
         form = DocumentForm()
     return render(request, 'upload_from_json.html', {
-        'form': form
+        'form': form,
+        'documents': documents
     })    
 
 def page_view(request):
-    documents = Document.objects.all()
-    return render(request, 'base.html',{'documents': documents})
+    return render(request, 'base.html')
