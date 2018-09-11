@@ -14,6 +14,13 @@
         {% for obj in documents %}
         <li class="li_list">
             <a class="a_list" href="{{ obj.document.url }}">{{ obj.document.name }}<small>({{ obj.uploaded_at }})</small></a>
+            {% if user.is_staff %}
+                <form action="{% url 'delete' %}" method="post" enctype="multipart/form-data">
+                    {% csrf_token %}
+                    <input type="hidden" name="document" value="{{ obj.pk }}" />
+                    <input type="submit" value="Delete" />
+                </form>
+            {% endif %}
         </li>
         {% endfor %}
     </ul>

@@ -2,6 +2,7 @@ from django.shortcuts import render
 import json
 from django.shortcuts import render, redirect
 import logging
+
 #import pandas as pd
 
 from pyspark import SparkContext, SparkConf
@@ -11,6 +12,7 @@ from datetime import datetime
 
 from .forms import DocumentForm
 from .models import Document
+from django.shortcuts import get_object_or_404
 
 
 logger = logging.getLogger('cel_logging')
@@ -85,6 +87,19 @@ def upload_from_json(request):
         'form': form,
         'documents': documents
     })    
+
+
+def delete(request):
+    if request.method != 'POST':
+        raise HTTP404
+
+    docId = request.POST.get('document', None)
+    docToDel = get_object_or_404(Document, pk = docId)
+    docToDel.document.delete()
+    docToDel.delete()
+
+    return redirect('/upload_json')
+
 
 def page_view(request):
     return render(request, 'base.html')
