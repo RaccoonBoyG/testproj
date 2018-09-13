@@ -84,7 +84,7 @@ def delete(request):
     docToDel.document.delete()
     docToDel.delete()
 
-    return redirect('/upload_json')
+    return redirect('/upload')
 
 
 def page_view(request):
