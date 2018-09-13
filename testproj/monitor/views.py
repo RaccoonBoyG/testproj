@@ -65,7 +65,8 @@ def upload_file(request):
     documents = Document.objects.all()
     if request.method == 'POST':
         form = DocumentForm(request.POST, request.FILES)
-        print(type(form))
+        print(request.FILES.size)
+        print(form.size)
         if form.is_valid():
             form.save()
         return redirect('/upload')
