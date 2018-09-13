@@ -76,6 +76,7 @@ def upload_file(request):
     char_elem = '{'
     logRDD = logRDD.map(lambda line: f'{char_elem}{line}')
     log = logRDD.filter(filter_log)
+    documents = Document.objects.all()
     if request.method == 'POST':
         form = DocumentForm(request.POST, request.FILES)
         if form.is_valid():
