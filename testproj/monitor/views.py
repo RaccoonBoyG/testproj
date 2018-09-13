@@ -14,6 +14,7 @@ from .forms import DocumentForm
 from .models import Document
 from django.shortcuts import get_object_or_404
 from django.core.files.uploadedfile import UploadedFile
+import pickle
 
 
 
@@ -46,7 +47,7 @@ def calculateTime(df_log):
     return time_all
 
 
-def upload_from_spark():
+def upload_from_spark(request):
     conf = SparkConf().setAppName('TestProjApp')
     sc = SparkContext.getOrCreate(conf=conf)
     sql_sc = SQLContext(sc)
@@ -60,13 +61,16 @@ def upload_from_spark():
     new_column = F.when(df_log.event_type!='page_close', F.split('event_type','/')[5]).when(df_log.event_type=='page_close',F.split('page','/')[7]).otherwise('page_close')
     df_log_test = df_log.withColumn('event_type', new_column)
     df_log_test = df_log_test.filter(df_log_test.event_type != '')
+    df_log_test1 = df_log_test.withColumn("id",F.monotonically_increasing_id())
+    mydict = df_log_test1.toPandas().set_index('id').T.to_dict('list')
+    pickle.dump(mydict, open("/tmp/mydict", "wb"))
+    return redirect('/upload')
 
 
 def upload_file(request):
     documents = Document.objects.all()
     if request.method == 'POST':
         form = DocumentForm(request.POST, request.FILES)
-        print(form['document'])
         if form.is_valid():
             form.save()
         return redirect('/upload')
