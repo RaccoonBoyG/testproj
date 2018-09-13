@@ -12,7 +12,7 @@
 </div>
 <form action="{% url 'upload_from_spark' %}" method="post" enctype="multipart/form-data">
     {% csrf_token %}
-    <input type="button" name="upload_from_spark" value="Test Spark" />
+    <input class="but" type="button" name="upload_from_spark" value="Test Spark" />
 </form>
 <div class="upload_list">
     <h3>Загруженные файлы:</h3>
