@@ -15,6 +15,7 @@ from .models import Document
 from django.shortcuts import get_object_or_404
 
 
+
 logger = logging.getLogger('cel_logging')
 
 def el_in_line(line, els):
@@ -64,9 +65,10 @@ def upload_file(request):
     documents = Document.objects.all()
     if request.method == 'POST':
         form = DocumentForm(request.POST, request.FILES)
+        print(type(form))
         if form.is_valid():
             form.save()
-            return redirect('/upload')
+        return redirect('/upload')
     else:
         form = DocumentForm()
     return render(request, 'upload_file.html', {
