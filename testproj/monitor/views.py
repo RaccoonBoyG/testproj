@@ -47,7 +47,7 @@ def calculateTime(df_log):
     return time_all
 
 
-def upload_from_spark(request):
+def upload_from_spark(log):
     conf = SparkConf().setAppName('TestProjApp')
     sc = SparkContext.getOrCreate(conf=conf)
     sql_sc = SQLContext(sc)
@@ -76,6 +76,7 @@ def upload_file(request):
     char_elem = '{'
     logRDD = logRDD.map(lambda line: f'{char_elem}{line}')
     log = logRDD.filter(filter_log)
+    df_log = sql_sc.read.json(log)
     documents = Document.objects.all()
     if request.method == 'POST':
         form = DocumentForm(request.POST, request.FILES)
