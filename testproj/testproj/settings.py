@@ -39,7 +39,6 @@ INSTALLED_APPS = [
     'django.contrib.staticfiles',
     'monitor',
     'testproj',
-    'chunked_upload',
 ]
 
 MIDDLEWARE = [
