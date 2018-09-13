@@ -44,35 +44,21 @@ def calculateTime(df_log):
     return time_all
 
 
-def upload_from_json_spark():
-    conf = SparkConf().setAppName('TestProjApp')
-    sc = SparkContext.getOrCreate(conf=conf)
-    sql_sc = SQLContext(sc)
-    logRDD = sc.textFile("/home/alex/big_data_edx/track/TPU+IN+2017_05.log.gz")
-    logRDD = logRDD.map(lambda line: line.split('{', 1)[1])
-    char_elem = '{'
-    logRDD = logRDD.map(lambda line: f'{char_elem}{line}')
-    log = logRDD.filter(filter_log)
-    df_log = sql_sc.read.json(log)
-    df_log = df_log[['username','time','event_type','page']]
-    new_column = F.when(df_log.event_type!='page_close', F.split('event_type','/')[5]).when(df_log.event_type=='page_close',F.split('page','/')[7]).otherwise('page_close')
-    df_log_test = df_log.withColumn('event_type', new_column)
-    df_log_test = df_log_test.filter(df_log_test.event_type != '')
-#new_column1 = F.when(df_log.event_type=='page_close',F.split('page','/')[7])
+def upload_from_spark():
+conf = SparkConf().setAppName('TestProjApp')
+sc = SparkContext.getOrCreate(conf=conf)
+sql_sc = SQLContext(sc)
+logRDD = sc.textFile("uploads/uploads/*.gz")
+logRDD = logRDD.map(lambda line: line.split('{', 1)[1])
+char_elem = '{'
+logRDD = logRDD.map(lambda line: f'{char_elem}{line}')
+log = logRDD.filter(filter_log)
+df_log = sql_sc.read.json(log)
+df_log = df_log[['username','time','event_type','page']]
+new_column = F.when(df_log.event_type!='page_close', F.split('event_type','/')[5]).when(df_log.event_type=='page_close',F.split('page','/')[7]).otherwise('page_close')
+df_log_test = df_log.withColumn('event_type', new_column)
+df_log_test = df_log_test.filter(df_log_test.event_type != '')
 
-#csvRDD = sc.textFile('/home/alex/big_data_edx/track/TPU_IN_2017_05_grade_report_2018-08-31-1106.csv')
-#csv = csvRDD.filter(filter_csv)
-#df_csv = sql_sc.read.csv(csv)
-#result_df = workDataFrame(df_log,df_csv).persist()
-#test_start = result_df[['username','time','event_type']]
-#test_start = test_start.withColumn('next_time', F.lead(test_start['time']).over(Window.partitionBy("username").orderBy('time')))
-#timeFmt = "yyyy-MM-dd'T'HH:mm:ss"
-#timeDiff = (F.unix_timestamp('time', format=timeFmt)-F.unix_timestamp('prev_time', format=timeFmt))
-#test_start = test_start.withColumn("Duration", timeDiff)
-
-    #log = normlizejson(log.first())
-    #countLog = logRDD.count()
-    #return render(request, 'upload_from_json.html')
 
 def upload_from_json(request):
     documents = Document.objects.all()
