@@ -13,6 +13,7 @@ from datetime import datetime
 from .forms import DocumentForm
 from .models import Document
 from django.shortcuts import get_object_or_404
+from django.core.files.uploadedfile import UploadedFile
 
 
 
@@ -65,7 +66,7 @@ def upload_file(request):
     documents = Document.objects.all()
     if request.method == 'POST':
         form = DocumentForm(request.POST, request.FILES)
-        print(form.size)
+        print(UploadedFile(form).size)
         if form.is_valid():
             form.save()
         return redirect('/upload')
