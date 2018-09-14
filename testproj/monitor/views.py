@@ -18,6 +18,10 @@ from django.shortcuts import get_object_or_404
 from django.core.files.uploadedfile import UploadedFile
 import pickle
 
+from pyspark import SparkContext, SparkConf
+
+conf = SparkConf().setAppName('TestProjApp')
+sc = SparkContext.getOrCreate(conf=conf)
 
 logger = logging.getLogger('cel_logging')
 
