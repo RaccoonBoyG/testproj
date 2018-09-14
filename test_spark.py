@@ -20,7 +20,7 @@ def filter_log(line):
 
 
 def upload_from_spark(sc,sql_sc):
-    logRDD = sc.textFile("testproj/uploads/uploads/*.gz")
+    logRDD = sc.textFile("testproj/testproj/uploads/uploads/*.gz")
     logRDD = logRDD.map(lambda line: line.split('{', 1)[1])
     char_elem = '{'
     logRDD = logRDD.map(lambda line: f'{char_elem}{line}')
@@ -33,5 +33,5 @@ def upload_from_spark(sc,sql_sc):
     df_log_test1 = df_log_test.withColumn("id",F.monotonically_increasing_id())
     mydict = df_log_test1.toPandas().set_index('id').T.to_dict('list')
     pickle.dump(mydict, open("/tmp/mydict", "wb"))
-    
+
 upload_from_spark(sc,sql_sc)
