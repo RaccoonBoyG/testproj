@@ -6,7 +6,8 @@ import pickle
 conf = SparkConf().setAppName('TestProjApp')
 sc = SparkContext.getOrCreate(conf=conf)
 sql_sc = SQLContext(sc)
-upload_from_spark()
+upload_from_spark(sc,sql_sc)
+
 
 def el_in_line(line, els):
     b = []
@@ -14,11 +15,12 @@ def el_in_line(line, els):
         b.append(el in line)
     return not any(b)
 
+
 def filter_log(line):  
         return el_in_line(line, ['/container/','Drupal','/instructor','{"username": ""','/info','edx.ui.lms.link_clicked','/jump_to','/progress','seek_video','play_video','pause_video','load_video','/xblock/','/xmodule/','edx.ui.lms.sequence.next_selected','stop_video','seq_goto','seq_next','problem_graded','speed_change_video','problem_check','/course/','edx.ui.lms.sequence.previous_selected','/masquerade','studio.lektorium.tv'])
 
 
-def upload_from_spark():
+def upload_from_spark(sc,sql_sc):
     logRDD = sc.textFile("testproj/uploads/uploads/*.gz")
     logRDD = logRDD.map(lambda line: line.split('{', 1)[1])
     char_elem = '{'
