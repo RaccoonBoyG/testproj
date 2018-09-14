@@ -17,7 +17,6 @@ from django.core.files.uploadedfile import UploadedFile
 import pickle
 
 
-
 logger = logging.getLogger('cel_logging')
 
 def el_in_line(line, els):
@@ -56,7 +55,7 @@ def upload_from_spark(log):
     char_elem = '{'
     logRDD = logRDD.map(lambda line: f'{char_elem}{line}')
     log = logRDD.filter(filter_log)
-    df_log = sql_sc.read.json(log)
+    df_log = sql_sc.read.json(log).persist()
     df_log = df_log[['username','time','event_type','page']]
     new_column = F.when(df_log.event_type!='page_close', F.split('event_type','/')[5]).when(df_log.event_type=='page_close',F.split('page','/')[7]).otherwise('page_close')
     df_log_test = df_log.withColumn('event_type', new_column)
@@ -68,15 +67,6 @@ def upload_from_spark(log):
 
 
 def upload_file(request):
-    conf = SparkConf().setAppName('TestProjApp')
-    sc = SparkContext.getOrCreate(conf=conf)
-    sql_sc = SQLContext(sc)
-    logRDD = sc.textFile("uploads/uploads/*.gz")
-    logRDD = logRDD.map(lambda line: line.split('{', 1)[1])
-    char_elem = '{'
-    logRDD = logRDD.map(lambda line: f'{char_elem}{line}')
-    log = logRDD.filter(filter_log)
-    df_log = sql_sc.read.json(log)
     documents = Document.objects.all()
     if request.method == 'POST':
         form = DocumentForm(request.POST, request.FILES)
