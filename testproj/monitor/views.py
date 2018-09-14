@@ -3,9 +3,11 @@ import json
 from django.shortcuts import render, redirect
 import logging
 
+from testproj import *
+
 #import pandas as pd
 
-from pyspark import SparkContext, SparkConf
+
 from pyspark.sql import SQLContext
 import pyspark.sql.functions as F
 from datetime import datetime
@@ -47,8 +49,8 @@ def calculateTime(df_log):
 
 
 def upload_from_spark(log):
-    conf = SparkConf().setAppName('TestProjApp')
-    sc = SparkContext.getOrCreate(conf=conf)
+    # conf = SparkConf().setAppName('TestProjApp')
+    # sc = SparkContext.getOrCreate(conf=conf)
     sql_sc = SQLContext(sc)
     logRDD = sc.textFile("uploads/uploads/*.gz")
     logRDD = logRDD.map(lambda line: line.split('{', 1)[1])
