@@ -6,7 +6,6 @@ import pickle
 conf = SparkConf().setAppName('TestProjApp')
 sc = SparkContext.getOrCreate(conf=conf)
 sql_sc = SQLContext(sc)
-upload_from_spark(sc,sql_sc)
 
 
 def el_in_line(line, els):
@@ -34,3 +33,5 @@ def upload_from_spark(sc,sql_sc):
     df_log_test1 = df_log_test.withColumn("id",F.monotonically_increasing_id())
     mydict = df_log_test1.toPandas().set_index('id').T.to_dict('list')
     pickle.dump(mydict, open("/tmp/mydict", "wb"))
+    
+upload_from_spark(sc,sql_sc)
