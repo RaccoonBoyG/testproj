@@ -3,7 +3,7 @@ import json
 from django.shortcuts import render, redirect
 import logging
 
-from testproj import *
+from monitor import sc, conf
 
 #import pandas as pd
 
