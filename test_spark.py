@@ -3,6 +3,7 @@ from pyspark.sql import SQLContext
 import pyspark.sql.functions as F
 import pickle
 from pyspark.sql import SparkSession
+from pyspark.streaming import StreamingContext
 
 #conf = SparkConf().setAppName('TestProjApp')
 #sc = SparkContext.getOrCreate(conf=conf)
@@ -35,6 +36,18 @@ def upload_from_spark(sc,sql_sc):
     pickle.dump(mydict, open("/tmp/mydict", "wb"))
 
 if __name__ == "__main__":
-    sc = SparkSession.builder.master("local").appName("TestProjApp").getOrCreate()
+    #sc = SparkSession.builder.master("local").appName("TestProjApp").getOrCreate()
     #conf = SparkConf().setAppName('TestProjApp')
     #sc = SparkContext.getOrCreate(conf=conf)
+    sc = SparkContext(appName="TestProjApp")
+    ssc = StreamingContext(sc, 1)
+    ssc.checkpoint("/tmp/spark")
+    logRDD = ssc.textFileStream("testproj/uploads/uploads/*.gz")
+    logRDD = logRDD.map(lambda line: line.split('{', 1)[1])
+    char_elem = '{'
+    logRDD = logRDD.map(lambda line: f'{char_elem}{line}')
+    log = logRDD.filter(filter_log)
+
+    log.pprint()
+    ssc.start()
+    ssc.awaitTermination()
