@@ -49,8 +49,11 @@ def process(time,rdd):
         spark = getSparkSessionInstance(rdd.context.getConf())
 
         # Convert RDD[String] to RDD[Row] to DataFrame
-        rowRdd = rdd.map(lambda w: Row(word=w))
-        wordsDataFrame = spark.createDataFrame(rowRdd)
+        log = rdd.map(lambda line: line.split('{', 1)[1])
+        char_elem = '{'
+        log = log.map(lambda line: f'{char_elem}{line}')
+        log = log.filter(filter_log)
+        wordsDataFrame = spark.createDataFrame(log)
         wordsDataFrame[['username','time','event_type','page']].show()
     
     except:
@@ -64,16 +67,11 @@ if __name__ == "__main__":
     ssc = StreamingContext(spark, 10)
     ssc.checkpoint("/tmp/spark")
     logRDD = ssc.textFileStream("testproj/uploads/uploads/*.gz")
-    print(type(logRDD))
-    log = logRDD.map(lambda line: line.split('{', 1)[1])
-    char_elem = '{'
-    log = log.map(lambda line: f'{char_elem}{line}')
-    log = log.filter(filter_log)
 
 
-    log.pprint()
+    logRDD.pprint()
 
-    log.foreachRDD(process)
+    logRDD.foreachRDD(process)
     ssc.start()
     ssc.awaitTermination()
     #mydict = df_log_test1.toPandas().set_index('id').T.to_dict('list')
