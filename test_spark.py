@@ -34,19 +34,12 @@ def filter_log(line):
 #     mydict = df_log_test1.toPandas().set_index('id').T.to_dict('list')
 #     pickle.dump(mydict, open("/tmp/mydict", "wb"))
 
-def getSparkSessionInstance(sparkConf):
-    if ('sparkSessionSingletonInstance' not in globals()):
-        globals()['sparkSessionSingletonInstance'] = SparkSession\
-            .builder\
-            .config(conf=sparkConf)\
-            .getOrCreate()
-    return globals()['sparkSessionSingletonInstance']
-
 
 def process(time,rdd):
     print("========= %s =========" % str(time))
     # Get the singleton instance of SparkSession
-    spark = getSparkSessionInstance(rdd.context.getConf())
+    conf = SparkConf().setAppName('BuffferApp')
+    spark = SparkContext.getOrCreate(conf=conf)
 
     # Convert RDD[String] to RDD[Row] to DataFrame
     log = rdd.map(lambda line: line.split('{', 1)[1])
