@@ -61,9 +61,10 @@ if __name__ == "__main__":
     #conf = SparkConf().setAppName('TestProjApp')
     #sc = SparkContext.getOrCreate(conf=conf)
     #sc = SparkContext(appName="TestProjApp")
-    ssc = StreamingContext(spark, 60)
+    ssc = StreamingContext(spark, 10)
     ssc.checkpoint("/tmp/spark")
     logRDD = ssc.textFileStream("testproj/uploads/uploads/*.gz")
+    print(type(logRDD))
     log = logRDD.map(lambda line: line.split('{', 1)[1])
     char_elem = '{'
     log = log.map(lambda line: f'{char_elem}{line}')
