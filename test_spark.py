@@ -57,6 +57,6 @@ if __name__ == "__main__":
     mydict = df_log_test1.toPandas().set_index('id').T.to_dict('list')
     pickle.dump(mydict, open("/tmp/mydict", "wb"))
 
-    log.pprint()
+    df_log_test1.show()
     ssc.start()
     ssc.awaitTermination()
