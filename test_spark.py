@@ -1,7 +1,7 @@
 from pyspark import SparkContext, SparkConf
 from pyspark.sql import SQLContext
 import pyspark.sql.functions as F
-from pyspark.sql import SparkSession
+from pyspark.sql import SparkSession ,Row
 from pyspark.streaming import StreamingContext
 
 #conf = SparkConf().setAppName('TestProjApp')
@@ -34,18 +34,27 @@ def filter_log(line):
 #     mydict = df_log_test1.toPandas().set_index('id').T.to_dict('list')
 #     pickle.dump(mydict, open("/tmp/mydict", "wb"))
 
-def filter_convert_rdd(rddRaw):
-    rddRaw.first()
-    print(type(rddRaw))
-    print(rddRaw)
-    #rdd = rddRaw.map(lambda line: str(line))
-    #rdd = rdd.map(lambda line: line.split('{', 1)[1])
-    #char_elem = '{'
-    #rdd = rdd.map(lambda line: f'{char_elem}{line}')
-    #log = rdd.filter(filter_log)
-    #log.first()
-    #df_log = spark.read.json(log)
-    #df_log.show()
+def getSparkSessionInstance(sparkConf):
+    if ('sparkSessionSingletonInstance' not in globals()):
+        globals()['sparkSessionSingletonInstance'] = SparkSession\
+            .builder\
+            .config(conf=sparkConf)\
+            .getOrCreate()
+    return globals()['sparkSessionSingletonInstance']
+
+
+def process(time,rdd):
+    try:
+        # Get the singleton instance of SparkSession
+        spark = getSparkSessionInstance(rdd.context.getConf())
+
+        # Convert RDD[String] to RDD[Row] to DataFrame
+        rowRdd = rdd.map(lambda w: Row(word=w))
+        wordsDataFrame = spark.createDataFrame(rowRdd)
+        wordsDataFrame[['username','time','event_type','page']].show()
+    
+    except:
+        pass
 
 if __name__ == "__main__":
     spark = SparkSession.builder.master("local").appName("TestProjApp").getOrCreate()
@@ -55,9 +64,15 @@ if __name__ == "__main__":
     ssc = StreamingContext(spark, 60)
     ssc.checkpoint("/tmp/spark")
     logRDD = ssc.textFileStream("testproj/uploads/uploads/*.gz")
-    
-    logRDD.pprint()
+    log = logRDD.map(lambda line: line.split('{', 1)[1])
+    char_elem = '{'
+    log = log.map(lambda line: f'{char_elem}{line}')
+    log = log.filter(filter_log)
 
+
+    log.pprint()
+
+    log.foreachRDD(process)
     ssc.start()
     ssc.awaitTermination()
     #mydict = df_log_test1.toPandas().set_index('id').T.to_dict('list')
