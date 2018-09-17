@@ -35,7 +35,7 @@ def upload_from_spark(sc,sql_sc):
     mydict = df_log_test1.toPandas().set_index('id').T.to_dict('list')
     pickle.dump(mydict, open("/tmp/mydict", "wb"))
 
-def filter_convert_rdd(rddRaw):
+def filter_convert_rdd(rddRaw,sql_sc):
     rdd = rddRaw.map(lambda line: str(line))
     rdd = rdd.map(lambda line: line.split('{', 1)[1])
     char_elem = '{'
@@ -54,8 +54,8 @@ if __name__ == "__main__":
     ssc.checkpoint("/tmp/spark")
     logRDD = ssc.textFileStream("testproj/uploads/uploads/*.gz")
     
-    logRDD.foreachRDD(lambda rddRaw: filter_convert_rdd(rddRaw))
-    
+    logRDD.foreachRDD(lambda rddRaw: filter_convert_rdd(rddRaw,sql_sc))
+
     ssc.start()
     ssc.awaitTermination()
     #mydict = df_log_test1.toPandas().set_index('id').T.to_dict('list')
