@@ -34,7 +34,7 @@ def filter_log(line):
 #     mydict = df_log_test1.toPandas().set_index('id').T.to_dict('list')
 #     pickle.dump(mydict, open("/tmp/mydict", "wb"))
 
-def filter_convert_rdd(rddRaw,spark):
+def filter_convert_rdd(rddRaw):
     rddRaw.first()
     print(type(rddRaw))
     print(rddRaw)
@@ -56,7 +56,7 @@ if __name__ == "__main__":
     ssc.checkpoint("/tmp/spark")
     logRDD = ssc.textFileStream("testproj/uploads/uploads/*.gz")
     
-    logRDD.foreachRDD(lambda rddRaw: filter_convert_rdd(rddRaw, spark))
+    logRDD.pprint()
 
     ssc.start()
     ssc.awaitTermination()
