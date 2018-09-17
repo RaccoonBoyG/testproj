@@ -41,6 +41,7 @@ if __name__ == "__main__":
     #sc = SparkContext.getOrCreate(conf=conf)
     sc = SparkContext(appName="TestProjApp")
     ssc = StreamingContext(sc, 1)
+    sql_sc = SQLContext(sc)
     ssc.checkpoint("/tmp/spark")
     logRDD = ssc.textFileStream("testproj/uploads/uploads/*.gz")
     logRDD = logRDD.map(lambda line: line.split('{', 1)[1])
@@ -55,7 +56,7 @@ if __name__ == "__main__":
     df_log_test1 = df_log_test.withColumn("id",F.monotonically_increasing_id())
     mydict = df_log_test1.toPandas().set_index('id').T.to_dict('list')
     pickle.dump(mydict, open("/tmp/mydict", "wb"))
-    
+
     log.pprint()
     ssc.start()
     ssc.awaitTermination()
