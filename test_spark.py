@@ -71,7 +71,7 @@ if __name__ == "__main__":
     #conf = SparkConf().setAppName('TestProjApp')
     #sc = SparkContext.getOrCreate(conf=conf)
     #sc = SparkContext(appName="TestProjApp")
-    ssc = StreamingContext(spark, 10)
+    ssc = StreamingContext(spark, 60)
     ssc.checkpoint("/tmp/spark")
     logRDD = ssc.textFileStream("testproj/uploads/uploads/*.gz")
 
