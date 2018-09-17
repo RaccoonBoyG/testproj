@@ -53,6 +53,9 @@ def process(time,rdd):
         char_elem = '{'
         log = log.map(lambda line: f'{char_elem}{line}')
         log = log.filter(filter_log)
+        print(type(log))
+        print(log.first())
+        print("!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!")
         wordsDataFrame = spark.createDataFrame(log)
         wordsDataFrame.show()
     
