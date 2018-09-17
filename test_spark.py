@@ -1,7 +1,6 @@
 from pyspark import SparkContext, SparkConf
 from pyspark.sql import SQLContext
 import pyspark.sql.functions as F
-import pickle
 from pyspark.sql import SparkSession
 from pyspark.streaming import StreamingContext
 
