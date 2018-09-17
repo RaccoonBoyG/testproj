@@ -2,10 +2,10 @@ from pyspark import SparkContext, SparkConf
 from pyspark.sql import SQLContext
 import pyspark.sql.functions as F
 import pickle
+from pyspark.sql import SparkSession
 
-conf = SparkConf().setAppName('TestProjApp')
-sc = SparkContext.getOrCreate(conf=conf)
-sql_sc = SQLContext(sc)
+#conf = SparkConf().setAppName('TestProjApp')
+#sc = SparkContext.getOrCreate(conf=conf)
 
 
 def el_in_line(line, els):
@@ -34,4 +34,7 @@ def upload_from_spark(sc,sql_sc):
     mydict = df_log_test1.toPandas().set_index('id').T.to_dict('list')
     pickle.dump(mydict, open("/tmp/mydict", "wb"))
 
-upload_from_spark(sc,sql_sc)
+if __name__ == "__main__":
+    sc = SparkSession.builder.appName("TestProjApp").getOrCreate()
+    sql_sc = SQLContext(sc)
+    upload_from_spark(sc,sql_sc)
