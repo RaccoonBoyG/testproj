@@ -44,7 +44,6 @@ def process(time,rdd):
     # Convert RDD[String] to RDD[Row] to DataFrame
     log = rdd.map(lambda line: line.split('{', 1)[1])
     print(type(log))
-    print(log.first())
     print("1111111!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!")
     char_elem = '{'
     log = log.map(lambda line: f'{char_elem}{line}')
