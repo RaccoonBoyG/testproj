@@ -3,6 +3,7 @@ from pyspark.sql import SQLContext
 import pyspark.sql.functions as F
 from pyspark.sql import SparkSession ,Row
 from pyspark.streaming import StreamingContext
+from __future__ import print_function
 
 #conf = SparkConf().setAppName('TestProjApp')
 #sc = SparkContext.getOrCreate(conf=conf)
@@ -44,12 +45,16 @@ def getSparkSessionInstance(sparkConf):
 
 
 def process(time,rdd):
+    print("========= %s =========" % str(time))
     try:
         # Get the singleton instance of SparkSession
         spark = getSparkSessionInstance(rdd.context.getConf())
 
         # Convert RDD[String] to RDD[Row] to DataFrame
         log = rdd.map(lambda line: line.split('{', 1)[1])
+        print(type(log))
+        print(log.first())
+        print("1111111!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!")
         char_elem = '{'
         log = log.map(lambda line: f'{char_elem}{line}')
         log = log.filter(filter_log)
@@ -58,9 +63,9 @@ def process(time,rdd):
         print("!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!")
         wordsDataFrame = spark.createDataFrame(log)
         wordsDataFrame.show()
-    
     except:
         pass
+
 
 if __name__ == "__main__":
     spark = SparkSession.builder.master("local").appName("TestProjApp").getOrCreate()
