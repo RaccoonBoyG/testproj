@@ -20,7 +20,7 @@ def filter_log(line):
 
 
 def upload_from_spark(sc,sql_sc):
-    logRDD = sc.textFile("testproj/testproj/uploads/uploads/*.gz")
+    logRDD = sc.textFile("testproj/uploads/uploads/*.gz")
     logRDD = logRDD.map(lambda line: line.split('{', 1)[1])
     char_elem = '{'
     logRDD = logRDD.map(lambda line: f'{char_elem}{line}')
