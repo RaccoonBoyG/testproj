@@ -57,11 +57,11 @@ def process(time,rdd):
 
 
 if __name__ == "__main__":
-    spark = SparkSession.builder.master("local").appName("TestProjApp").getOrCreate()
-    #conf = SparkConf().setAppName('TestProjApp')
+    #spark = SparkSession.builder.master("local").appName("TestProjApp").getOrCreate()
+    conf = SparkConf().setAppName('TestProjApp')
     #sc = SparkContext.getOrCreate(conf=conf)
-    #sc = SparkContext(appName="TestProjApp")
-    ssc = StreamingContext(spark, 60)
+    sc = SparkContext.getOrCreate(conf=conf)
+    ssc = StreamingContext(sc, 60)
     ssc.checkpoint("/tmp/spark")
     logRDD = ssc.textFileStream("testproj/uploads/uploads/*.gz")
 
