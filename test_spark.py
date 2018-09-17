@@ -3,7 +3,6 @@ from pyspark.sql import SQLContext
 import pyspark.sql.functions as F
 from pyspark.sql import SparkSession ,Row
 from pyspark.streaming import StreamingContext
-from __future__ import print_function
 
 #conf = SparkConf().setAppName('TestProjApp')
 #sc = SparkContext.getOrCreate(conf=conf)
