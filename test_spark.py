@@ -35,26 +35,25 @@ def upload_from_spark(sc,sql_sc):
     mydict = df_log_test1.toPandas().set_index('id').T.to_dict('list')
     pickle.dump(mydict, open("/tmp/mydict", "wb"))
 
-def filter_convert_rdd(rddRaw,sql_sc):
+def filter_convert_rdd(rddRaw,spark):
     rdd = rddRaw.map(lambda line: str(line))
     rdd = rdd.map(lambda line: line.split('{', 1)[1])
     char_elem = '{'
     rdd = rdd.map(lambda line: f'{char_elem}{line}')
     log = rdd.filter(filter_log)
-    df_log = sql_sc.read.json(log).persist()
+    df_log = spark.read.json(log)
     df_log.show()
 
 if __name__ == "__main__":
-    #sc = SparkSession.builder.master("local").appName("TestProjApp").getOrCreate()
-    conf = SparkConf().setAppName('TestProjApp')
-    sc = SparkContext.getOrCreate(conf=conf)
+    spark = SparkSession.builder.master("local").appName("TestProjApp").getOrCreate()
+    #conf = SparkConf().setAppName('TestProjApp')
+    #sc = SparkContext.getOrCreate(conf=conf)
     #sc = SparkContext(appName="TestProjApp")
-    ssc = StreamingContext(sc, 60)
-    sql_sc = SQLContext(sc)
+    ssc = StreamingContext(spark, 60)
     ssc.checkpoint("/tmp/spark")
     logRDD = ssc.textFileStream("testproj/uploads/uploads/*.gz")
     
-    logRDD.foreachRDD(lambda rddRaw: filter_convert_rdd(rddRaw,sql_sc))
+    logRDD.foreachRDD(lambda rddRaw: filter_convert_rdd(rddRaw, spark))
 
     ssc.start()
     ssc.awaitTermination()
