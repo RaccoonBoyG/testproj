@@ -36,12 +36,15 @@ def filter_log(line):
 #     pickle.dump(mydict, open("/tmp/mydict", "wb"))
 
 def filter_convert_rdd(rddRaw,spark):
-    rdd = rddRaw.map(lambda line: str(line))
-    rdd = rdd.map(lambda line: line.split('{', 1)[1])
-    char_elem = '{'
-    rdd = rdd.map(lambda line: f'{char_elem}{line}')
-    log = rdd.filter(filter_log)
-    log.first()
+    rddRaw.first()
+    print(type(rddRaw))
+    print(rddRaw)
+    #rdd = rddRaw.map(lambda line: str(line))
+    #rdd = rdd.map(lambda line: line.split('{', 1)[1])
+    #char_elem = '{'
+    #rdd = rdd.map(lambda line: f'{char_elem}{line}')
+    #log = rdd.filter(filter_log)
+    #log.first()
     #df_log = spark.read.json(log)
     #df_log.show()
 
