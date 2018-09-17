@@ -45,25 +45,22 @@ def getSparkSessionInstance(sparkConf):
 
 def process(time,rdd):
     print("========= %s =========" % str(time))
-    try:
-        # Get the singleton instance of SparkSession
-        spark = getSparkSessionInstance(rdd.context.getConf())
+    # Get the singleton instance of SparkSession
+    spark = getSparkSessionInstance(rdd.context.getConf())
 
-        # Convert RDD[String] to RDD[Row] to DataFrame
-        log = rdd.map(lambda line: line.split('{', 1)[1])
-        print(type(log))
-        print(log.first())
-        print("1111111!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!")
-        char_elem = '{'
-        log = log.map(lambda line: f'{char_elem}{line}')
-        log = log.filter(filter_log)
-        print(type(log))
-        print(log.first())
-        print("!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!")
-        wordsDataFrame = spark.createDataFrame(log)
-        wordsDataFrame.show()
-    except:
-        pass
+    # Convert RDD[String] to RDD[Row] to DataFrame
+    log = rdd.map(lambda line: line.split('{', 1)[1])
+    print(type(log))
+    print(log.first())
+    print("1111111!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!")
+    char_elem = '{'
+    log = log.map(lambda line: f'{char_elem}{line}')
+    log = log.filter(filter_log)
+    print(type(log))
+    print(log.first())
+    print("!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!")
+    wordsDataFrame = spark.createDataFrame(log)
+    wordsDataFrame.show()
 
 
 if __name__ == "__main__":
