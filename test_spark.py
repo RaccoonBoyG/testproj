@@ -54,7 +54,7 @@ def process(time,rdd):
         log = log.map(lambda line: f'{char_elem}{line}')
         log = log.filter(filter_log)
         wordsDataFrame = spark.createDataFrame(log)
-        wordsDataFrame[['username','time','event_type','page']].show()
+        wordsDataFrame.show()
     
     except:
         pass
