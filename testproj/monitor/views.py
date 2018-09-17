@@ -18,8 +18,7 @@ import pickle
 
 from pyspark import SparkContext, SparkConf
 
-conf = SparkConf().setAppName('TestProjApp')
-sc = SparkContext.getOrCreate(conf=conf)
+
 
 logger = logging.getLogger('cel_logging')
 
@@ -51,8 +50,8 @@ def calculateTime(df_log):
 
 
 def upload_from_spark(log):
-    # conf = SparkConf().setAppName('TestProjApp')
-    # sc = SparkContext.getOrCreate(conf=conf)
+    conf = SparkConf().setAppName('TestProjApp')
+    sc = SparkContext.getOrCreate(conf=conf)
     sql_sc = SQLContext(sc)
     logRDD = sc.textFile("uploads/uploads/*.gz")
     logRDD = logRDD.map(lambda line: line.split('{', 1)[1])
