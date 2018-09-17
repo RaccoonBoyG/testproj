@@ -35,6 +35,6 @@ def upload_from_spark(sc,sql_sc):
     pickle.dump(mydict, open("/tmp/mydict", "wb"))
 
 if __name__ == "__main__":
-    #sc = SparkSession.builder.appName("TestProjApp").getOrCreate()
-    conf = SparkConf().setAppName('TestProjApp')
-    sc = SparkContext.getOrCreate(conf=conf)
+    sc = SparkSession.builder.setMaster(“local”).setAppName("TestProjApp").getOrCreate()
+    #conf = SparkConf().setAppName('TestProjApp')
+    #sc = SparkContext.getOrCreate(conf=conf)
