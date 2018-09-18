@@ -49,7 +49,7 @@ def calculateTime(df_log):
     return time_all
 
 
-def upload_from_spark(log):
+def upload_from_spark():
     conf = SparkConf().setAppName('TestProjApp')
     sc = SparkContext.getOrCreate(conf=conf)
     sql_sc = SQLContext(sc)
