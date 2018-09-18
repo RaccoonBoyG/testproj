@@ -40,7 +40,7 @@ def process(time,rdd):
     # Get the singleton instance of SparkSession
     conf = SparkConf().setAppName('BuffferApp')
     spark = SparkContext.getOrCreate(conf=conf)
-
+    print(rdd)
     # Convert RDD[String] to RDD[Row] to DataFrame
     if not rdd.isEmpty(): 
         log = rdd.map(lambda line: line.split('{', 1)[1])
