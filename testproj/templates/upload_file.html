@@ -11,7 +11,7 @@
     </form>
 </div>
 <a class="but" href="{% url 'upload_from_spark' %}">Test Spark</a>
-<form action= '{% url "upload_from_spark"%}' method="POST">
+<form action= '{% url "upload_from_spark" %}' method="POST">
     {% csrf_token %}
     <input type="submit" class="but"  value="Test Spark" id="toggle1" />
   </form>

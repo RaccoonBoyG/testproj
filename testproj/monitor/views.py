@@ -1,4 +1,3 @@
-from django.shortcuts import render
 import json
 from django.shortcuts import render, redirect
 import logging
@@ -50,7 +49,7 @@ def calculateTime(df_log):
 
 
 def upload_from_spark(request):
-    conf = SparkConf().setAppName('TestProjApp1').setMaster("spark://127.0.0.1:7077")
+    conf = SparkConf().setAppName('TestProjApp1')
     sc = SparkContext.getOrCreate(conf=conf)
     sql_sc = SQLContext(sc)
     logRDD = sc.textFile("uploads/uploads/*.gz")
