@@ -52,7 +52,7 @@ def upload_from_spark(request):
     conf = SparkConf().setAppName('TestProjApp1')
     sc = SparkContext.getOrCreate(conf=conf)
     sql_sc = SQLContext(sc)
-    logRDD = sc.textFile("uploads/uploads/*.gz")
+    logRDD = sc.textFile("/home/alex/big_data_edx/testproj/testproj/uploads/uploads/TPUIN2017_05.log.gz")
     logger.info(logRDD)
     logRDD = logRDD.map(lambda line: line.split('{', 1)[1])
     char_elem = '{'
