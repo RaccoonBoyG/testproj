@@ -64,8 +64,8 @@ def upload_from_spark(request):
     df_log_test = df_log.withColumn('event_type', new_column)
     df_log_test = df_log_test.filter(df_log_test.event_type != '')
     df_log_test1 = df_log_test.withColumn("id",F.monotonically_increasing_id())
-    mydict = df_log_test1.toPandas().set_index('id').T.to_dict('list')
-    pickle.dump(mydict, open("/tmp/mydict", "wb"))
+    # mydict = df_log_test1.toPandas().set_index('id').T.to_dict('list')
+    # pickle.dump(mydict, open("/tmp/mydict", "wb"))
     return redirect('/upload')
 
 
