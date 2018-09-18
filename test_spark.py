@@ -42,17 +42,20 @@ def process(time,rdd):
     spark = SparkContext.getOrCreate(conf=conf)
 
     # Convert RDD[String] to RDD[Row] to DataFrame
-    log = rdd.map(lambda line: line.split('{', 1)[1])
-    print(type(log))
-    print("1111111!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!")
-    char_elem = '{'
-    log = log.map(lambda line: f'{char_elem}{line}')
-    log = log.filter(filter_log)
-    print(type(log))
-    print(log.first())
-    print("!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!")
-    wordsDataFrame = spark.createDataFrame(log)
-    wordsDataFrame.show()
+    if not rdd.isEmpty(): 
+        log = rdd.map(lambda line: line.split('{', 1)[1])
+        print(type(log))
+        print("1111111!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!")
+        char_elem = '{'
+        log = log.map(lambda line: f'{char_elem}{line}')
+        log = log.filter(filter_log)
+        print(type(log))
+        print(log.first())
+        print("!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!")
+        wordsDataFrame = spark.createDataFrame(log)
+        wordsDataFrame.show()
+    else:
+        print('ELSE')        
 
 
 if __name__ == "__main__":
