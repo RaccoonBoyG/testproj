@@ -37,8 +37,8 @@ def filter_log(line):
 
 def process(time,rdd):
     print("========= %s =========" % str(time))
-    # Get the singleton instance of SparkSession
-    conf = SparkConf().setAppName('BuffferApp')
+    # Get the singleton instance of SparkSessionsetAppName('BuffferApp')
+    conf = SparkConf().setMaster("spark://127.0.0.1:7077").set("spark.submit.deployMode","cluster")
     spark = SparkContext.getOrCreate(conf=conf)
     print(rdd)
     # Convert RDD[String] to RDD[Row] to DataFrame
@@ -59,19 +59,19 @@ def process(time,rdd):
 
 
 if __name__ == "__main__":
-    #spark = SparkSession.builder.master("local").appName("TestProjApp").getOrCreate()
+    #spark = SparkSession.builder().master("local[*]").appName("TestProjApp").getOrCreate()
     conf = SparkConf().setAppName('TestProjApp')
-    #sc = SparkContext.getOrCreate(conf=conf)
     sc = SparkContext.getOrCreate(conf=conf)
-    ssc = StreamingContext(sc, 1)
-    ssc.checkpoint("/tmp/spark")
-    logRDD = ssc.textFileStream("testproj/uploads/uploads/*.gz")
+    #sc = SparkContext.getOrCreate(conf=conf)
+    #ssc = StreamingContext(sc, 1)
+    #ssc.checkpoint("/tmp/spark")
+    #logRDD = ssc.textFileStream("testproj/uploads/uploads/*.gz")
 
 
-    logRDD.pprint()
+    #logRDD.pprint()
 
-    logRDD.foreachRDD(process)
-    ssc.start()
-    ssc.awaitTermination()
+    #logRDD.foreachRDD(process)
+    #ssc.start()
+    #ssc.awaitTermination()
     #mydict = df_log_test1.toPandas().set_index('id').T.to_dict('list')
     #pickle.dump(mydict, open("/tmp/mydict", "wb"))
