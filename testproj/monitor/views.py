@@ -49,7 +49,7 @@ def calculateTime(df_log):
     return time_all
 
 
-def upload_from_spark():
+def upload_from_spark(request):
     conf = SparkConf().setAppName('TestProjApp')
     sc = SparkContext.getOrCreate(conf=conf)
     sql_sc = SQLContext(sc)
@@ -66,6 +66,7 @@ def upload_from_spark():
     df_log_test1 = df_log_test.withColumn("id",F.monotonically_increasing_id())
     mydict = df_log_test1.toPandas().set_index('id').T.to_dict('list')
     pickle.dump(mydict, open("/tmp/mydict", "wb"))
+    return redirect('/upload')
 
 
 def upload_file(request):
