@@ -14,7 +14,7 @@ from .forms import DocumentForm
 from .models import Document
 from django.shortcuts import get_object_or_404
 from django.core.files.uploadedfile import UploadedFile
-import pickle
+#import pickle
 
 from pyspark import SparkContext, SparkConf
 
@@ -58,6 +58,7 @@ def upload_from_spark(request):
     char_elem = '{'
     logRDD = logRDD.map(lambda line: f'{char_elem}{line}')
     log = logRDD.filter(filter_log)
+    log = log.first()
     # df_log = sql_sc.read.json(log).persist()
     # df_log = df_log[['username','time','event_type','page']]
     # new_column = F.when(df_log.event_type!='page_close', F.split('event_type','/')[5]).when(df_log.event_type=='page_close',F.split('page','/')[7]).otherwise('page_close')
@@ -67,7 +68,7 @@ def upload_from_spark(request):
     # mydict = df_log_test1.toPandas().set_index('id').T.to_dict('list')
     # pickle.dump(mydict, open("/tmp/mydict", "wb"))
     return render(request, 'upload_from_spark.html', {
-        'log': log.first(),
+        'log': log,
     })    
 
 
