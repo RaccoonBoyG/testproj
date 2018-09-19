@@ -10,11 +10,7 @@
         <button class="but up upfile" type="submit">Загрузить</button>
     </form>
 </div>
-<a class="but" href="{% url 'upload_from_spark' %}">Test Spark</a>
-<form action= '{% url "upload_from_spark" %}' method="POST">
-    {% csrf_token %}
-    <input type="submit" class="but"  value="Test Spark" id="toggle1" />
-  </form>
+<a class="but" href="{% url 'data' %}">Test Spark</a>
 <div class="upload_list">
     <h3>Загруженные файлы:</h3>
     <ul>
