@@ -34,7 +34,7 @@ def handle_spark(self, *args):
         log = logRDD.filter(filter_log)
         log = log.first()
         logger.info(log)
-        df_log = sql_sc.read.json(log).persist()
+        df_log = sql_sc.read.json(log)
         df_log = df_log[['username','time','event_type','page']]
         new_column = F.when(df_log.event_type!='page_close', F.split('event_type','/')[5]).when(df_log.event_type=='page_close',F.split('page','/')[7]).otherwise('page_close')
         df_log_test = df_log.withColumn('event_type', new_column)
