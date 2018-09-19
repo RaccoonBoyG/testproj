@@ -15,7 +15,7 @@ from django.shortcuts import get_object_or_404
 from django.core.files.uploadedfile import UploadedFile
 #import pickle
 
-from .tasks import *
+from .tasks import handle_spark
 from django.http import JsonResponse
 
 
@@ -60,15 +60,7 @@ def data(request):
     # mydict = df_log_test1.toPandas().set_index('id').T.to_dict('list')
     # pickle.dump(mydict, open("/tmp/mydict", "wb"))
     elif request.method == "POST":
-        i = app.control.inspect()
-        context = dict()
-        context["active"] = []
-        for tasks in i.active().values():
-            context["active"] += tasks
-        task = request.POST.get("task", None)
-        if task:
-            if task not in [t["name"].split('.')[2] for t in context["active"]]:
-                globals()[task].delay()
+        handle_spark.delay()
 
         return JsonResponse({"status": "sucess"})
 

@@ -4,7 +4,10 @@
 
 <div class="upload_list" id="tasks">
     <h3>Анализ данных Spark:</h3>
-    <button class="but" data-task="upload_from_spark">Отправить данные</button>
+    <form action= '{% url "data" %}' method="POST">
+        {% csrf_token %}
+        <input type="submit" class="but"  value="Test Spark" id="toggle1" />
+    </form>
 </div>
 
 {% endblock %}
