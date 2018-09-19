@@ -33,3 +33,4 @@ def handle_spark(self, *args):
         log = logRDD.filter(filter_log)
         log = log.first()
         logger.info(log)
+        SparkContext.stop()
