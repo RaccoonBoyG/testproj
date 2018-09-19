@@ -61,8 +61,8 @@ def data(request):
     # pickle.dump(mydict, open("/tmp/mydict", "wb"))
     elif request.method == "POST":
         handle_spark.delay()
-
-        return JsonResponse({"status": "sucess"})
+        
+        return render(request, "data.html")
 
 
 def upload_file(request):
