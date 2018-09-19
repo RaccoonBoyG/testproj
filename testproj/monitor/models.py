@@ -15,7 +15,7 @@ class Document(models.Model):
 
 
 class DataSet(models.Model):
-    spark_count = models.CharField(max_length=255, blank=True, null=True)
+    spark_count = models.CharField(max_length=255, blank=True, null=True, default="0")
 
     def df_spark_count(self):
 
