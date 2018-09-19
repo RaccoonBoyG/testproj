@@ -37,3 +37,4 @@ def handle_spark(self, *args):
         df_log_test = df_log.withColumn('event_type', new_column)
         df_log_test = df_log_test.filter(df_log_test.event_type != '')
         df_log_test1 = df_log_test.withColumn("id",F.monotonically_increasing_id())
+        return df_log_test1.count()
