@@ -7,7 +7,7 @@ import logging
 
 from pyspark.sql import SQLContext
 import pyspark.sql.functions as F
-from datetime import datetime
+from datetime import datetime 
 
 from .forms import DocumentForm
 from .models import Document
@@ -15,8 +15,8 @@ from django.shortcuts import get_object_or_404
 from django.core.files.uploadedfile import UploadedFile
 #import pickle
 
-from pyspark import SparkContext, SparkConf
-
+from .tasks import *
+from django.http import JsonResponse
 
 
 logger = logging.getLogger('cel_logging')
@@ -48,18 +48,14 @@ def calculateTime(df_log):
     return time_all
 
 
-def upload_from_spark(request):
-    conf = SparkConf().setAppName('TestProjApp1')
-    sc = SparkContext.getOrCreate(conf=conf)
-    sql_sc = SQLContext(sc)
-    logRDD = sc.textFile("/home/alex/big_data_edx/testproj/testproj/uploads/uploads/TPUIN2017_05.log.gz")
-    logger.info(logRDD)
-    logRDD = logRDD.map(lambda line: line.split('{', 1)[1])
-    char_elem = '{'
-    logRDD = logRDD.map(lambda line: f'{char_elem}{line}')
-    log = logRDD.filter(filter_log)
-    log = log.first()
-    logger.info(log)
+def data(request):
+    if request.method == "GET":
+        i = app.control.inspect()
+        context = dict()
+        context["active"] = []
+        for tasks in i.active().values():
+            context["active"] += tasks
+        return render(request, "data.html", context)
     # df_log = sql_sc.read.json(log).persist()
     # df_log = df_log[['username','time','event_type','page']]
     # new_column = F.when(df_log.event_type!='page_close', F.split('event_type','/')[5]).when(df_log.event_type=='page_close',F.split('page','/')[7]).otherwise('page_close')
@@ -68,10 +64,18 @@ def upload_from_spark(request):
     # df_log_test1 = df_log_test.withColumn("id",F.monotonically_increasing_id())
     # mydict = df_log_test1.toPandas().set_index('id').T.to_dict('list')
     # pickle.dump(mydict, open("/tmp/mydict", "wb"))
-    context = {
-        'first_obj': log,
-    }
-    return render(request, 'upload_from_spark.html', context)    
+    elif request.method == "POST":
+        i = app.control.inspect()
+        context = dict()
+        context["active"] = []
+        for tasks in i.active().values():
+            context["active"] += tasks
+        task = request.POST.get("task", None)
+        if task:
+            if task not in [t["name"].split('.')[2] for t in context["active"]]:
+                globals()[task].delay()
+
+        return JsonResponse({"status": "sucess"})
 
 
 def upload_file(request):

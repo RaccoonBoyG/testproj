@@ -38,6 +38,7 @@ INSTALLED_APPS = [
     'django.contrib.messages',
     'django.contrib.staticfiles',
     'monitor',
+    'django_celery_results',
     # 'testproj'fdf,
 ]
 
