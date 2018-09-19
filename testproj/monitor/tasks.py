@@ -32,7 +32,6 @@ def handle_spark(self, *args):
         char_elem = '{'
         logRDD = logRDD.map(lambda line: f'{char_elem}{line}')
         log = logRDD.filter(filter_log)
-        log = log.first()
         logger.info(log)
         df_log = sql_sc.read.json(log)
         df_log = df_log[['username','time','event_type','page']]
