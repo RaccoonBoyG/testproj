@@ -7,7 +7,7 @@ import logging
 from datetime import datetime 
 
 from .forms import DocumentForm
-from .models import Document
+from .models import Document, DataSet
 from django.shortcuts import get_object_or_404
 from django.core.files.uploadedfile import UploadedFile
 #import pickle
@@ -17,15 +17,6 @@ from django.http import JsonResponse
 
 
 logger = logging.getLogger('cel_logging')
-
-def el_in_line(line, els):
-    b = []
-    for el in els:
-        b.append(el in line)
-    return not any(b)
-
-def filter_log(line):  
-        return el_in_line(line, ['/container/','Drupal','/instructor','{"username": ""','/info','edx.ui.lms.link_clicked','/jump_to','/progress','seek_video','play_video','pause_video','load_video','/xblock/','/xmodule/','edx.ui.lms.sequence.next_selected','stop_video','seq_goto','seq_next','problem_graded','speed_change_video','problem_check','/course/','edx.ui.lms.sequence.previous_selected','/masquerade','studio.lektorium.tv'])
 
 def filter_csv(line):
     if(("unenrolled") not in line):
@@ -47,11 +38,10 @@ def calculateTime(df_log):
 
 def data(request):
     if request.method == "POST":
-        spark = handle_spark.delay()
+        handle_spark.delay()
         return render(request, "data.html")
     elif request.method == "GET":
-        return render(request, "data.html")
-    logger.info(spark)
+        return render(request, "data.html", {'count': DataSet.objects.first().spark_count })
 
 
 def upload_file(request):
