@@ -22,10 +22,10 @@ def handle_spark(self, *args):
                 return el_in_line(line, ['/container/','Drupal','/instructor','{"username": ""','/info','edx.ui.lms.link_clicked','/jump_to','/progress','seek_video','play_video','pause_video','load_video','/xblock/','/xmodule/','edx.ui.lms.sequence.next_selected','stop_video','seq_goto','seq_next','problem_graded','speed_change_video','problem_check','/course/','edx.ui.lms.sequence.previous_selected','/masquerade','studio.lektorium.tv'])
 
 
-        conf = SparkConf().setAppName('TestProjApp1')
+        conf = SparkConf().setAppName('TestProjApp1').setMaster("spark://127.0.0.1:7077")
         sc = SparkContext.getOrCreate(conf=conf)
         sql_sc = SQLContext(sc)
-        logRDD = sc.textFile("/home/alex/big_data_edx/testproj/testproj/uploads/uploads/TPUIN2017_05.log.gz")
+        logRDD = sc.textFile("uploads/uploads/*.gz")
         logger.info(logRDD)
         logRDD = logRDD.map(lambda line: line.split('{', 1)[1])
         char_elem = '{'
