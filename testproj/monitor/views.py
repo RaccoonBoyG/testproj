@@ -48,7 +48,7 @@ def calculateTime(df_log):
 def data(request):
     if request.method == "POST":
         spark = handle_spark.delay()
-        return redirect('/upload',{'count' : spark})
+        return render(request, 'upload_file.html', {'count' : spark})
 
 
 def upload_file(request):
