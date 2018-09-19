@@ -1,0 +1,14 @@
+{% extends "base.html" %}
+{% load static %}
+{% block content %}
+
+<div class="upload_list" id="tasks">
+    <h3>Анализ данных Spark:</h3>
+    <form action= '{% url "data" %}' method="POST">
+        {% csrf_token %}
+        <input type="submit" class="but"  value="Фильтрация открытие/закрытие страницы из логов" id="toggle1" />
+    </form>
+    <h3>Кол-во строк в DataFrame: {{count}}</h3>
+</div>
+
+{% endblock %}

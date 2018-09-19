@@ -6,7 +6,7 @@ from .views import upload_file, page_view, delete, data
 """
 urlpatterns = [
     re_path(r'^$',page_view, name='page_view'),
-    re_path(r'^upload/', upload_file, name='upload_file'),
+    re_path(r'^upload', upload_file, name='upload_file'),
     re_path(r'^delete', delete, name='delete'),
     re_path(r'^data', data, name='data')
 ]
