@@ -10,5 +10,5 @@ class DocumentAdmin(admin.ModelAdmin):
 
 @admin.register(DataSet)
 class DataSetAdmin(admin.ModelAdmin):
-    list_display = ("spark_count")
+    list_display = ("spark_count",)
 
