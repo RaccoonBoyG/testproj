@@ -5,6 +5,7 @@ from testproj.celery import app
 from .models import Document
 from pyspark import SparkContext, SparkConf
 from pyspark.sql import SQLContext
+import pyspark.sql.functions as F
 
 logger = logging.getLogger('celery_logging')
 

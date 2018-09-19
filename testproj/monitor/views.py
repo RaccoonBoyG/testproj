@@ -4,9 +4,6 @@ import logging
 
 #import pandas as pd
 
-
-from pyspark.sql import SQLContext
-import pyspark.sql.functions as F
 from datetime import datetime 
 
 from .forms import DocumentForm
@@ -61,7 +58,7 @@ def data(request):
     # pickle.dump(mydict, open("/tmp/mydict", "wb"))
     elif request.method == "POST":
         handle_spark.delay()
-        
+
         return render(request, "data.html")
 
 
