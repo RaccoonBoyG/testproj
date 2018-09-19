@@ -48,9 +48,10 @@ def calculateTime(df_log):
 def data(request):
     if request.method == "POST":
         spark = handle_spark.delay()
+        logger.info(spark)
         return render(request, "data.html")
-        if request.method == "GET":
-            return render(request, "data.html", { 'count' : spark })
+    elif request.method == "GET":
+        return render(request, "data.html")
 
 
 def upload_file(request):
