@@ -42,6 +42,7 @@ def data(request):
         return render(request, "data.html")
     elif request.method == "GET":
         test = DataSet.objects.first().update(spark_count=spark_count)
+        print(test)
         return render(request, "data.html", {'count': test })
 
 
