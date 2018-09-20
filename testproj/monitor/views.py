@@ -41,7 +41,7 @@ def data(request):
         handle_spark.delay()
         return render(request, "data.html")
     elif request.method == "GET":
-        return render(request, "data.html", {'count': DataSet.objects.first().spark_count })
+        return render(request, "data.html")
 
 
 def upload_file(request):
