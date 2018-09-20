@@ -40,12 +40,15 @@ result_value = ''
 def data(request):
     if request.method == "POST":
         spark = handle_spark.delay()
-        result_value = spark.get()
+        if spark!=None:
+            result_value = spark.get()
         return render(request, "data.html")
     elif request.method == "GET":
         if result_value!=None or result_value!='':
             context['count'] = result_value
-        return render(request, "data.html",context)
+            return render(request, "data.html",context)
+        else:
+            return render(request, "data.html")
 
 
 def upload_file(request):
