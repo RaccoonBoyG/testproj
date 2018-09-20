@@ -35,20 +35,14 @@ def calculateTime(df_log):
     time_all.append(user_obj)
     return time_all
 
-result_value = ''
 
 def data(request):
     if request.method == "POST":
-        spark = handle_spark.delay()
-        if spark!=None:
-            result_value = spark.get()
+        handle_spark.delay()
         return render(request, "data.html")
     elif request.method == "GET":
-        if result_value!=None or result_value!='':
-            context['count'] = result_value
-            return render(request, "data.html",context)
-        else:
-            return render(request, "data.html")
+        ds = DataSet.objects.all().latest()
+        return render(request, "data.html", {"count": ds.spark_count})
 
 
 def upload_file(request):
