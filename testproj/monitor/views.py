@@ -41,7 +41,7 @@ def data(request):
         handle_spark.delay()
         return render(request, "data.html")
     elif request.method == "GET":
-        ds = DataSet.objects.all().latest()
+        ds = DataSet.objects.all().first()
         return render(request, "data.html", {"count": ds.spark_count})
 
 
