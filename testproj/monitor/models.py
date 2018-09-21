@@ -28,7 +28,7 @@ class DataSet(models.Model):
         def filter_log(line):  
             return el_in_line(line, ['/container/','Drupal','/instructor','{"username": ""','/info','edx.ui.lms.link_clicked','/jump_to','/progress','seek_video','play_video','pause_video','load_video','/xblock/','/xmodule/','edx.ui.lms.sequence.next_selected','stop_video','seq_goto','seq_next','problem_graded','speed_change_video','problem_check','/course/','edx.ui.lms.sequence.previous_selected','/masquerade','studio.lektorium.tv'])
 
-        conf = SparkConf().setAppName('TestProjApp1').setMaster("spark://localhost:7077").setExecutorEnv('PYTHONPATH', '/home/alex/big_data_edx/venvs/bin/python3')
+        conf = SparkConf().setAppName('TestProjApp1').setMaster("spark://localhost:7077").setExecutorEnv('PYSPARK_PYTHON', '/home/alex/big_data_edx/venvs/bin/python3')
         sc = SparkContext.getOrCreate(conf=conf)
         sql_sc = SQLContext(sc)
         logRDD = sc.textFile("uploads/uploads/*.gz")
