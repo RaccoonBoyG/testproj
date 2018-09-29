@@ -44,7 +44,7 @@ class DataSet(models.Model):
         df_log_test = df_log_test.filter(df_log_test.event_type != '')
         df_log_test1 = df_log_test.withColumn("id",F.monotonically_increasing_id())
         mydict = df_log_test1.toPandas().set_index('id').T.to_dict('list')
-        pickle.dump(mydict, open("/tmp/mydict1", "wb"))
+        pickle.dump(mydict, open("uploads/mydict1", "wb"))
         self.spark_count = df_log_test1.count()
         self.save()
         
