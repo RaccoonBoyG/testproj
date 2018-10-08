@@ -14,7 +14,7 @@ from django.core.files.uploadedfile import UploadedFile
 
 from .tasks import handle_spark
 from django.http import JsonResponse
-from fusioncharts import FusionCharts
+from .fusioncharts import FusionCharts
 
 
 logger = logging.getLogger('cel_logging')
