@@ -86,10 +86,10 @@ def page_view(request):
             'json',
             """{
     "chart": {
-        "caption": "Трудоемкость курса",
+        "caption": "Labor intensity",
         "subcaption": "TPUIN2017_05",
-        "xaxisname": "Раздел 1",
-        "yaxisname": "Время",
+        "xaxisname": "Razdel 1",
+        "yaxisname": "Time",
         "xaxisminvalue": "23",
         "xaxismaxvalue": "95",
         "ynumbesuffix": "Sec.",
