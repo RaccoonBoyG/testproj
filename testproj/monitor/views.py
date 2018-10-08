@@ -81,7 +81,7 @@ def page_view(request):
                 "caption":"Harry\'s SuperMart",
                 "subCaption":"Top 5 stores in last month by revenue",
                 "numberPrefix":"$",
-                "theme":"ocean"
+                "theme":"candy"
             },
             "data": [  
                 {"label":"Bakersfield Central", "value":"880000"},
@@ -91,4 +91,4 @@ def page_view(request):
                 {"label":"Daly City Serramonte", "value":"330000"}
             ]
         }""")
-    return render(request, 'dashboard.html', {'output': column2d.render()})
+    return render(request, 'dashboard.html', {'output': column2d})
