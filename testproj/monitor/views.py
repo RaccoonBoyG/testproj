@@ -14,6 +14,7 @@ from django.core.files.uploadedfile import UploadedFile
 
 from .tasks import handle_spark
 from django.http import JsonResponse
+from fusioncharts import FusionCharts
 
 
 logger = logging.getLogger('cel_logging')
@@ -73,4 +74,21 @@ def delete(request):
 
 
 def page_view(request):
-    return render(request, 'dashboard.html')
+    column2d = FusionCharts("column2d", "ex1" , "600", "400", "chart-1", "json",
+        # The data is passed as a string in the `dataSource` as parameter.
+    """{  
+            "chart": {  
+                "caption":"Harry\'s SuperMart",
+                "subCaption":"Top 5 stores in last month by revenue",
+                "numberPrefix":"$",
+                "theme":"ocean"
+            },
+            "data": [  
+                {"label":"Bakersfield Central", "value":"880000"},
+                {"label":"Garden Groove harbour", "value":"730000"},
+                {"label":"Los Angeles Topanga", "value":"590000"},
+                {"label":"Compton-Rancho Dom", "value":"520000"},
+                {"label":"Daly City Serramonte", "value":"330000"}
+            ]
+        }""")
+    return render(request, 'dashboard.html', {'output': column2d.render()})
