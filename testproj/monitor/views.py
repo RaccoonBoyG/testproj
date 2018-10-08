@@ -73,4 +73,4 @@ def delete(request):
 
 
 def page_view(request):
-    return render(request, 'base.html')
+    return render(request, 'dashboard.html')
