@@ -98,6 +98,12 @@ def page_view(request):
     chartData["US"] = 30
     chartData["China"] = 30
 
+    json_data = open('upload/data.json')
+    dataJson = json.loads(json_data)
+    logger.info(dataJson)
+
+    json_data.close()
+
 
     dataSource["chart"] = chartConfig
     dataSource["data"] = []
