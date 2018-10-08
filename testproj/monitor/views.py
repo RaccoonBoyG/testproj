@@ -79,22 +79,21 @@ def page_view(request):
     chartObj = FusionCharts(
             'scatter',
             'ex1',
-            '600',
-            '400',
+            '900',
+            '700',
             'chart-1',
             'json',
             """{
     "chart": {
-        "caption": "Sales of Beer & Ice cream vs Temperature",
-        "subcaption": "Los Angeles Topanga",
-        "xaxisname": "Avg Day Temperature",
-        "yaxisname": "Sales (In USD)",
+        "caption": "Трудоемкость курса",
+        "subcaption": "TPUIN2017_05",
+        "xaxisname": "Раздел 1",
+        "yaxisname": "Время",
         "xaxisminvalue": "23",
         "xaxismaxvalue": "95",
-        "ynumberprefix": "$",
+        "ynumbesuffix": "Sec.",
         "yaxisminvalue": "1200",
-        "xnumbersuffix": "°F",
-        "theme": "fusion",
+        "theme": "candy",
         "plottooltext": "<b>$yDataValue</b> worth <b>$seriesNames</b> were sold,<br>when temperature was <b>$xdataValue</b>"
     },
     "categories": [
