@@ -102,7 +102,7 @@ def page_view(request):
 
 
     dataSource["chart"] = chartConfig
-    dataSource["data"] = "uploads/data.json"
+    dataSource["data"] = "../uploads/data.json"
     
     # Convert the data in the `chartData` array into a format that can be consumed by FusionCharts. 
     # The data for the chart should be in an array wherein each element of the array is a JSON object
