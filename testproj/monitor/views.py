@@ -95,6 +95,7 @@ def page_view(request):
         "ynumbesuffix": "Sec.",
         "yaxisminvalue": "1200",
         "theme": "candy",
+        "exportEnabled": "1",
         "plottooltext": "<b>$yDataValue</b> worth <b>$seriesNames</b> were sold,<br>when temperature was <b>$xdataValue</b>"
     },
     "categories": [
