@@ -85,7 +85,7 @@ def page_view(request):
     chartConfig["xAxisName"] = "Country"
     chartConfig["yAxisName"] = "Reserves (MMbbl)"
     chartConfig["numberSuffix"] = "K"
-    chartConfig["theme"] = "fusion"
+    chartConfig["theme"] = "candy"
 
     # The `chartData` dict contains key-value pairs data
     chartData = OrderedDict()
