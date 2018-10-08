@@ -1,3 +1,4 @@
+# -*- coding: utf-8 -*-
 import json
 from django.shortcuts import render, redirect
 import logging
@@ -79,7 +80,7 @@ def page_view(request):
     chartObj = FusionCharts(
             'scatter',
             'ex1',
-            '900',
+            '1000',
             '700',
             'chart-1',
             'json',
