@@ -4,7 +4,10 @@
 <script type="text/javascript" src='{% static "js/themes/fusioncharts.theme.candy.js" %}'></script>
 {% block content %}
 
-<h3>FusionChart</h3>
-<div id="chartContainer">{{ output|safe }}</div>
+<h3>{{ chartTitle|safe }}</h3>
+<div id="chart-1">{{ output|safe }}</div>
+<div id="chart-2">{{ output_2|safe }}</div>
+<br/>
+<a href="/">Back</a>
 
 {% endblock %}
