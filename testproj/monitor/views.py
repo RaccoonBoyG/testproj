@@ -102,7 +102,7 @@ def page_view(request):
 
 
     dataSource["chart"] = chartConfig
-    jsonData = open('uploads/data.json')
+    jsonData = open('../uploads/data.json')
     dataSource["data"] = json.load(jsonData)
     jsonData.close()
     
