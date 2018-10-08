@@ -80,11 +80,11 @@ def page_view(request):
 
     # The `chartConfig` dict contains key-value pairs data for chart attribute
     chartConfig = OrderedDict()
-    chartConfig["caption"] = "Трудоёмкость курса"
+    chartConfig["caption"] = "Labor Intensity"
     #chartConfig["subCaption"] = "In MMbbl = One Million barrels"
-    chartConfig["xAxisName"] = "Раздел 1"
-    chartConfig["yAxisName"] = "Время(секунды)"
-    chartConfig["numberSuffix"] = "Sec"
+    chartConfig["xAxisName"] = "Razdel 1"
+    chartConfig["yAxisName"] = "Time(second)"
+    chartConfig["numberSuffix"] = " Sec"
     chartConfig["theme"] = "candy"
 
     # The `chartData` dict contains key-value pairs data
