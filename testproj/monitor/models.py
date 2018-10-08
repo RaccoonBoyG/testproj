@@ -46,6 +46,3 @@ class DataSet(models.Model):
         mydict = df_log_test1.toPandas().set_index('id').T.to_dict('list')
         self.spark_count = df_log_test1.count()
         self.save()
-    
-    def show_dict():
-        
