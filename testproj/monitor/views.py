@@ -104,7 +104,7 @@ def page_view(request):
     #dataJson = json.loads(json_data)
     logger.info(dataJson)
 
-    json_data.close()
+    #json_data.close()
 
 
     dataSource["chart"] = chartConfig
