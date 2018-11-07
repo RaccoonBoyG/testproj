@@ -20,7 +20,7 @@ class Courses(models.Model):
                                     null=True)
     subsection = models.ManyToManyField('Subsections', verbose_name="Подразделы курса", blank=True,
                                     null=True)
-    partner = models.ForeignKey('Platform', verbose_name="Платформа", null=True)
+    partner = models.ForeignKey('Platform',on_delete=DO_NOTHING, verbose_name="Платформа", null=True)
 
     class Meta:
         verbose_name = 'Курс'
