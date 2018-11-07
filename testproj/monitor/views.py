@@ -99,9 +99,9 @@ def page_view(request):
     chartData["China"] = 30
 
     with open('static/data.json') as f:
-        dataJson = json.loads(f.read)
+        dataJson = json.loads(f.read())
     #json_data = open('static/data.json')
-    dataJson = json.loads(json_data)
+    #dataJson = json.loads(json_data)
     logger.info(dataJson)
 
     json_data.close()
