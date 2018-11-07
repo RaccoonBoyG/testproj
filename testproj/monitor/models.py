@@ -16,11 +16,11 @@ class Document(models.Model):
 class Courses(models.Model):
     name = models.CharField("Наименование курса",max_length=1024, blank=True, null=True)
     session = models.CharField("Номер запуска курса",max_length=512, blank=True, null=True)
-    section = models.ManyToManyField(Sections, verbose_name="Разделы курса", blank=True,
+    section = models.ManyToManyField('Sections', verbose_name="Разделы курса", blank=True,
                                     null=True)
-    subsection = models.ManyToManyField(Subsections, verbose_name="Подразделы курса", blank=True,
+    subsection = models.ManyToManyField('Subsections', verbose_name="Подразделы курса", blank=True,
                                     null=True)
-    partner = models.ForeignKey(Platform, verbose_name="Платформа", null=True)
+    partner = models.ForeignKey('Platform', verbose_name="Платформа", null=True)
 
     class Meta:
         verbose_name = 'Курс'
