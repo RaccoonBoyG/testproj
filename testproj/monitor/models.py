@@ -46,7 +46,7 @@ class Sections(models.Model):
 class Subsections(models.Model):
     global_id = models.CharField("ИД подраздела",max_length=1024, blank=True, null=True)
     name = models.CharField("Наименование",max_length=1024, blank=True, null=True)
-    section = models.ForeignKey('Sections', on_delete = models.CASCADE, verbose_name="Раздел", null=True)
+    section = models.ForeignKey('Sections', on_delete=models.CASCADE, verbose_name="Раздел", null=True)
 
     class Meta:
         verbose_name = 'Подраздел'
@@ -55,7 +55,7 @@ class Subsections(models.Model):
 class Pages(models.Model):
     global_id = models.CharField("ИД страницы",max_length=1024, blank=True, null=True)
     name = models.CharField("Наименование",max_length=1024, blank=True, null=True)
-    subsection = models.ForeignKey('Subsections', on_delete = models.CASCADE, verbose_name="Подраздел", null=True)
+    subsection = models.ForeignKey('Subsections', on_delete=models.CASCADE, verbose_name="Подраздел", null=True)
 
     class Meta:
         verbose_name = 'Страница'
