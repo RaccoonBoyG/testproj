@@ -125,6 +125,6 @@ def page_view(request):
     # Create an object for the column 2D chart using the FusionCharts class constructor
     # The chart data is passed to the `dataSource` parameter.
     column2D = FusionCharts("column2d", "ex1" , "1000", "800", "chart-1", "json", dataSource)
-    logger.info(str(column2D))
+    logger.info(str(dataSource))
 
     return render(request, 'dashboard.html', {'output' : column2D.render(), 'chartTitle': 'Simple Chart Using Array'})

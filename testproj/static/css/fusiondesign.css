@@ -1063,7 +1063,7 @@ hr {
     overflow: visible
 }
 
-h1,
+/* h1,
 h2,
 h3,
 h4,
@@ -1071,7 +1071,7 @@ h5,
 h6 {
     margin-top: 0;
     margin-bottom: .5rem
-}
+} */
 
 p {
     margin-top: 0;
@@ -1167,7 +1167,7 @@ sup {
     top: -.5em
 }
 
-a {
+/* a {
     text-decoration: none;
     background-color: transparent;
     -webkit-text-decoration-skip: objects
@@ -1180,7 +1180,7 @@ a:hover {
 
 a:hover {
     text-decoration: underline
-}
+} */
 
 a:not([href]):not([tabindex]),
 a:not([href]):not([tabindex]):focus,
