@@ -1,4 +1,4 @@
-ul,a,li{
+ul,li{
     text-decoration: none;
     list-style-type: none;
  }
@@ -30,6 +30,7 @@ ul,a,li{
      position: relative;
      display: inline-flex;
      margin-left: 25px;
+     top: 10px;
  }
  .but{
     border: 1px solid #293342;
@@ -47,7 +48,6 @@ ul,a,li{
      right: 50px !important;
      position: absolute;
      top:15px;
-     width: 55px;
  }
  h1 {
      color: #ffff;
@@ -81,7 +81,7 @@ ul,a,li{
     width: 150px;
  }
  .logo1{
-     height: 80px;
+     height: 75px;
  }
  .logo2{
      height: 100px;
@@ -101,7 +101,7 @@ ul,a,li{
     margin-right: auto;
     width: 1000px;
  }
- .form{
+.form{
     margin-top: 5%;
  }
 .upload_file{
