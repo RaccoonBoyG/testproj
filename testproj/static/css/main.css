@@ -2,6 +2,10 @@ ul,li{
     text-decoration: none;
     list-style-type: none;
  }
+ a{
+    text-decoration: none !important;
+    list-style-type: none !important;
+ }
  body {/*font-family: "Antic Slab", Arial, Helvetica, sans-serif;*/
  padding: 0px;
  top: 0px;
@@ -54,17 +58,20 @@ ul,li{
      font-size: 30px !important;
      font-weight: normal !important;
      width: 350px;
+     line-height: 1.25 !important;
  }
  h2{
      color: #ffff;
      font-size: 18px !important;
      font-weight: normal !important;
      letter-spacing: 0.5px;
+     line-height: 1.25 !important;
  }
  h3{
     font-size: 15px !important;
     font-weight: normal !important;
     letter-spacing: 0.5px;
+    line-height: 1.25 !important;
  }
  p {
      text-align: left;
