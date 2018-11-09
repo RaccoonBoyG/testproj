@@ -102,7 +102,7 @@ def page_view(request):
         dataJson = json.loads(f.read())
     #json_data = open('static/data.json')
     #dataJson = json.loads(json_data)
-    logger.info(dataJson)
+    #logger.info(dataJson)
 
     #json_data.close()
 
@@ -125,5 +125,6 @@ def page_view(request):
     # Create an object for the column 2D chart using the FusionCharts class constructor
     # The chart data is passed to the `dataSource` parameter.
     column2D = FusionCharts("column2d", "ex1" , "1000", "800", "chart-1", "json", dataSource)
+    logger.info(str(column2D))
 
     return render(request, 'dashboard.html', {'output' : column2D.render(), 'chartTitle': 'Simple Chart Using Array'})
