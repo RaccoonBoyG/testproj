@@ -7,7 +7,7 @@ import logging
 from datetime import datetime 
 
 from .forms import DocumentForm
-from .models import Document, DataSet
+from .models import *
 from django.shortcuts import get_object_or_404
 from django.core.files.uploadedfile import UploadedFile
 #import pickle
@@ -76,27 +76,17 @@ def delete(request):
 
 
 def page_view(request):
-    dataSource = OrderedDict()
-
-    # The `chartConfig` dict contains key-value pairs data for chart attribute
-    chartConfig = OrderedDict()
-    chartConfig["caption"] = "Labor Intensity"
-    #chartConfig["subCaption"] = "In MMbbl = One Million barrels"
-    chartConfig["xAxisName"] = "Razdel 1"
-    chartConfig["yAxisName"] = "Time(second)"
-    chartConfig["numberSuffix"] = " Sec"
-    chartConfig["theme"] = "candy"
-
-    # The `chartData` dict contains key-value pairs data
-    chartData = OrderedDict()
-    chartData["Venezuela"] = 290
-    chartData["Saudi"] = 260
-    chartData["Canada"] = 180
-    chartData["Iran"] = 140
-    chartData["Russia"] = 115
-    chartData["UAE"] = 100
-    chartData["US"] = 30
-    chartData["China"] = 30
+    dataSource = {}
+    dataSource['chart'] = { 
+        "caption": "Customer Happiness by Response time",
+        "yaxisname": "Response Time(in secodns)",
+        "xaxisname": "Count pages",
+        "yaxismaxvalue": "10",
+        "xaxisminvalue": "0",
+        "xaxismaxvalue": "100",
+        "theme": "candy",
+        "plottooltext": "<div id='valueDiv'>Page numder : <b>$seriesName</b><br> Time : <b>$yDataValue sec</b></div>"
+    }
 
     with open('static/data.json') as f:
         dataJson = json.loads(f.read())
@@ -106,8 +96,6 @@ def page_view(request):
 
     #json_data.close()
 
-
-    dataSource["chart"] = chartConfig
     dataSource["data"] = []
     
     # Convert the data in the `chartData` array into a format that can be consumed by FusionCharts. 
@@ -117,14 +105,14 @@ def page_view(request):
     # Iterate through the data in `chartData` and insert in to the `dataSource['data']` list.
     for key, value in chartData.items():
         data = {}
-        data["label"] = key
-        data["value"] = value
+        data["xasix"] = key
+        data["yasix"] = value
         dataSource["data"].append(data)
 
 
     # Create an object for the column 2D chart using the FusionCharts class constructor
     # The chart data is passed to the `dataSource` parameter.
-    column2D = FusionCharts("column2d", "ex1" , "1000", "800", "chart-1", "json", dataSource)
+    zoomscatter = FusionCharts("zoomscatter", "ex1" , "900", "750", "chart-container", "json", dataSource)
     logger.info(str(dataSource))
 
-    return render(request, 'dashboard.html', {'output' : column2D.render(), 'chartTitle': 'Simple Chart Using Array'})
+    return render(request, 'dashboard.html', {'output' : zoomscatter.render(), 'chartTitle': 'Labor Intensity'})
